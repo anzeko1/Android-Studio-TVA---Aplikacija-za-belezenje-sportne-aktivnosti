@@ -14,7 +14,7 @@ ZA VSE NADALJNE COMMITE SE UPOŠTEVA SPODNJI PRIMER
 
 ČE SE DOBI TA ERROR SPODAJ:
 
-![GITHUB_PUSH_ERROR](https://github.com/anzeko123/tva-projekt/github-push-error.png?raw=true)
+![GITHUB_PUSH_ERROR](https://github.com/anzeko123/tva-projekt/hithub-push-error.png?raw=true)
 
 Pomeni da datoteke v github repositoryu in datoteke v lokalnem repositoryu niso enake, kar pomeni da je nekdo  že pushal v času ko ti pišeš novo kodo.
 
