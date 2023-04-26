@@ -37,7 +37,3 @@ git push https://github.com/anzeko123/tva-projekt.git
 TO SE POTEM SAMO SKOS PONAVLJA OB IZDELAVI APLIKACIJE DO ZAKLJUČKA
 
 ČE BO PRIŠLO DO ZAPLETOV SE LAHKO NAREDI NOVI BRANCH
-
-test
-test2
-test3
