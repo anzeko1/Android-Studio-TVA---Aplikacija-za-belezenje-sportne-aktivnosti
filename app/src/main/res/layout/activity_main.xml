@@ -4,15 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_grey"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="64dp"
+        android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="222dp"
+        android:background="#0000"
+        android:text="@string/login"
+        android:textColor="@color/login"
+        android:textAllCaps="false"
+        android:textSize="45px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="20dp"
+        android:background="#0000"
+        android:text="@string/register"
+        android:textColor="@color/login"
+        android:textAllCaps="false"
+        android:textSize="45px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="108dp"
+        android:text="@string/start_activity"
+        android:textSize="80px"
+        android:textColor="@color/black"
+        android:fontFamily="@font/open_sans"
+        android:textFontWeight="900"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/enter_activity"
+        android:layout_width="322dp"
+        android:layout_height="143dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/EnterActivityImage"
+            android:layout_width="322dp"
+            android:layout_height="143dp"
+            android:layout_gravity="center"
+            android:src="@drawable/enter_activity"
+            android:contentDescription="Enter activity"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <Button
+            android:id="@+id/EnterActivity"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/enter_activity"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/black"
+            android:alpha="0.75"
+            android:textAllCaps="false"
+            android:textSize="45px"
+            android:background="@drawable/activity_button"
+            app:backgroundTint="@color/white"/>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/choose_activity"
+        android:layout_width="322dp"
+        android:layout_height="143dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="320dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/ChooseActivityImage"
+            android:layout_width="322dp"
+            android:layout_height="143dp"
+            android:layout_gravity="center"
+            android:src="@drawable/choose_activity"
+            android:contentDescription="Start a new activity"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <Button
+            android:id="@+id/ChooseActivity"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/choose_activity"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/black"
+            android:alpha="0.75"
+            android:textAllCaps="false"
+            android:textSize="45px"
+            android:background="@drawable/activity_button"
+            app:backgroundTint="@color/white"/>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/history_activity"
+        android:layout_width="322dp"
+        android:layout_height="143dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="480dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/HistoryActivityImage"
+            android:layout_width="322dp"
+            android:layout_height="143dp"
+            android:layout_gravity="center"
+            android:src="@drawable/history_activity"
+            android:contentDescription="Check history of activities"
+            tools:layout_editor_absoluteX="54dp"
+            tools:layout_editor_absoluteY="339dp" />
+
+        <Button
+            android:id="@+id/HistoryActivity"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/history_activity"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/black"
+            android:alpha="0.75"
+            android:textAllCaps="false"
+            android:textSize="45px"
+            android:background="@drawable/activity_button"
+            app:backgroundTint="@color/white"/>
+    </FrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

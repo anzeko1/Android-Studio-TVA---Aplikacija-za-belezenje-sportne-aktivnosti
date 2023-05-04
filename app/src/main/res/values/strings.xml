@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">tva-projekt</string>
+    <string name="login"><u>Login</u></string>
+    <string name="register"><u>Sign In</u></string>
+    <string name="start_activity">Start activity</string>
+    <string name="enter_activity">Enter Activity</string>
+    <string name="choose_activity">Choose Activity</string>
+    <string name="history_activity">Activity History</string>
+
 </resources>
