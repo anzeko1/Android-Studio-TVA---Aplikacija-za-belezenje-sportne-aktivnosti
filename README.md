@@ -24,6 +24,8 @@ git pull https://github.com/anzeko123/tva-projekt.git (to bo posodobilo obstoje�
 ----------------------------------------------------------------------------------------------------
 
 # OD PRVEGA COMMITA NAPREJ SE UPORABLJA TOLE:
+git pull https://github.com/anzeko123/tva-projekt.git       (tukaj se preveri če je akj novega in se popravi)
+git chackout -b ime_brancha
 git add .
 git status
 git commit -m "Sporočilo"
