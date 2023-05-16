@@ -82,9 +82,10 @@
             android:layout_height="143dp"
             android:layout_gravity="center"
             android:src="@drawable/enter_activity"
-            android:contentDescription="Enter activity"
+            android:contentDescription="@string/enter_activity"
             tools:layout_editor_absoluteX="54dp"
-            tools:layout_editor_absoluteY="339dp" />
+            tools:layout_editor_absoluteY="339dp"
+            android:onClick="enterActivity"/>
 
         <Button
             android:id="@+id/EnterActivity"
@@ -98,7 +99,8 @@
             android:textAllCaps="false"
             android:textSize="45px"
             android:background="@drawable/activity_button"
-            app:backgroundTint="@color/white"/>
+            app:backgroundTint="@color/white"
+            android:onClick="enterActivity"/>
     </FrameLayout>
     <FrameLayout
         android:id="@+id/choose_activity"

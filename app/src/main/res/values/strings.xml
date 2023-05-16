@@ -6,5 +6,21 @@
     <string name="enter_activity">Enter Activity</string>
     <string name="choose_activity">Choose Activity</string>
     <string name="history_activity">Activity History</string>
+    <string name="activity_name">Activity name</string>
+    <string name="activity_type">Type of activity</string>
+    <string name="duration">Duration</string>
+    <string name="activity_details">Activity details</string>
+    <string name="save">Save</string>
+    <string name="go_back">Go Back</string>
+    <string-array name="activities_array">
+        <item>Run</item>
+        <item>Walk</item>
+        <item>Bike</item>
+        <item>Fitness</item>
+        <item>Body Workout</item>
+        <item>Swimming</item>
+        <item>Other</item>
+    </string-array>
+
 
 </resources>
