@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
 }
+
+apply plugin: "realm-android"
 
 android {
     namespace 'com.example.tva_projekt'
@@ -15,17 +19,32 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        /*
+        debug {
+            buildConfigField "String", "RealmAppId", "\"application-0-ubsgk\""
+        }
+
+        release {
+            buildConfigField "String", "RealmAppId", "\"application-0-ubsgk\""
+        }
+        */
+
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+}
+realm {
+    syncEnabled = true
 }
 
 dependencies {
@@ -36,4 +55,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'io.realm:realm-gradle-plugin:10.10.1'
+    //implementation 'org.mongodb:mongodb-driver-sync:4.9.1'
 }
