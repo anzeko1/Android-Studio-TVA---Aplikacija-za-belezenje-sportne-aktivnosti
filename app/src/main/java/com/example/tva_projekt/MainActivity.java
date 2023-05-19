@@ -1,12 +1,17 @@
 package com.example.tva_projekt;
 
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import com.example.tva_projekt.dataObjects.User;
+import com.example.tva_projekt.dataObjects.AppUser;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -14,36 +19,72 @@ import io.realm.mongodb.App;
 import io.realm.mongodb.AppConfiguration;
 import io.realm.mongodb.Credentials;
 import io.realm.mongodb.sync.SyncConfiguration;
+import io.realm.mongodb.User;
+// MongoDB Service Packages
+import io.realm.mongodb.mongo.MongoClient;
+import io.realm.mongodb.mongo.MongoDatabase;
+import io.realm.mongodb.mongo.MongoCollection;
+// Utility Packages
+import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.types.ObjectId;
+
 
 public class MainActivity extends AppCompatActivity {
-
+    Realm uiThreadRealm;
+    MongoClient mongoClient;
+    MongoDatabase mongoDatabase;
+    MongoCollection<AppUser> mongoCollection;
+    User user;
+    App app;
+    String AppId = "application-0-ubsgk";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* //to zakomentirano probavam za povezavo na bazo
+        //to spodaj do konca funkcije je zapisana poveza in insert podatkov.
+        //Zaenkrat probavam tukaj da se lahko potem naprej prenese
         Realm.init(this);
-
-        AppConfiguration appConfig = new AppConfiguration.Builder("\"application-0-ubsgk\"").build();
-        App app = new App(appConfig);
-        app.login(Credentials.anonymous());
-
-
-        String realmName = "tva_projekt";
-        RealmConfiguration config = new RealmConfiguration.Builder().name(realmName).build();
-        Realm backgroundThreadRealm = Realm.getInstance(config);
-
-        User user = new User("test", "test", "test", "test", 22);
-        backgroundThreadRealm.executeTransaction (transactionRealm -> {
-            transactionRealm.insert(user);
+        app = new App(new AppConfiguration.Builder(AppId).build());
+        app.loginAsync(Credentials.anonymous(), new App.Callback<User>() {
+            @Override
+            public void onResult(App.Result<User> result) {
+                initializeMongoDB();
+                AppUser appUser = new AppUser(
+                        new ObjectId(),
+                        "test",
+                        "test",
+                        "test@gmail.com",
+                        "test",
+                        22);
+                mongoCollection.insertOne(appUser).getAsync(task -> {
+                    if (task.isSuccess()) {
+                        Log.v("EXAMPLE", "successfully inserted a document with id: " + task.get().getInsertedId());
+                    } else {
+                        Log.e("EXAMPLE", "failed to insert documents with: " + task.getError().getErrorMessage());
+                    }
+                });
+            }
         });
-        */
+
+
     }
     //ob kliku na Enter Activity preusmeri na aktivnost Enter Activity
     public void enterActivity(View view) {
         Intent intent = new Intent(MainActivity.this, EnterActivity.class);
         startActivity(intent);
+    }
+
+    //vzpostavitev povezave na mongodb
+    private void initializeMongoDB() {
+        user = app.currentUser();
+        mongoClient = user.getMongoClient("mongodb-atlas");
+        mongoDatabase = mongoClient.getDatabase("tva_projekt");
+        CodecRegistry pojoCodecRegistry = fromRegistries(AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+        mongoCollection = mongoDatabase.getCollection("user", AppUser.class).withCodecRegistry(pojoCodecRegistry);
     }
 
 }
