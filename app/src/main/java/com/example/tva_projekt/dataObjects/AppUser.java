@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmField;
 import io.realm.annotations.Required;
 
-public class User extends RealmObject {
+public class AppUser extends RealmObject {
     @PrimaryKey
     @RealmField("_id")
     private ObjectId id;
@@ -66,11 +66,11 @@ public class User extends RealmObject {
     }
 
 
-    public User() {
+    public AppUser() {
 
     }
 
-    public User(ObjectId id, String userName, String password, String email, String gender, Integer dob) {
+    public AppUser(ObjectId id, String userName, String password, String email, String gender, Integer dob) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -79,7 +79,7 @@ public class User extends RealmObject {
         this.gender = gender;
     }
 
-    public User(String userName, String password, String email, String gender, Integer dob) {
+    public AppUser(String userName, String password, String email, String gender, Integer dob) {
         this.userName = userName;
         this.password = password;
         this.email = email;
