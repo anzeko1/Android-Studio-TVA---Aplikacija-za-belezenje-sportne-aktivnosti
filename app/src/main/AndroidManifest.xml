@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name = "android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name = "android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tvaprojekt"
         tools:targetApi="31">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDIEvNyxp3lCI4t9hg5bn-RdOOUgt2zcqM"></meta-data>
+        <activity
+            android:name=".StartActivity"
+            android:exported="false" />
         <activity
             android:name=".EnterActivity"
-            android:label="@string/enter_activity"/>
+            android:label="@string/enter_activity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -6,4 +6,135 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
+
+    <FrameLayout
+        android:id="@+id/enter_activity_main"
+        android:layout_width="320px"
+        android:layout_height="110px"
+        android:layout_marginStart="30px"
+        android:layout_marginTop="30px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/go_back_button"
+            android:layout_width="320px"
+            android:layout_height="100px"
+            android:layout_gravity="fill"
+            android:background="#0000"
+            android:text="@string/go_back"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="45px"
+            app:backgroundTint="@color/white"
+            android:onClick="closeEnterActivity"/>
+
+        <ImageButton
+            android:id="@+id/go_back"
+            android:layout_width="40px"
+            android:layout_height="120px"
+            android:background="#0000"
+            android:contentDescription="@string/enter_activity"
+            android:src="@drawable/go_back"
+            android:onClick="closeEnterActivity"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="213dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/activity_name"
+        android:textColor="@color/black"
+        android:textFontWeight="900"
+        android:textSize="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/map_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,3:2"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="370dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/duration"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="430dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/distance"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="530dp"
+        android:background="#0000"
+        android:src="@drawable/play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="530dp"
+        android:background="#0000"
+        android:src="@drawable/pause"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="530dp"
+        android:background="#0000"
+        android:src="@drawable/stop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="340dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="608dp"
+        android:text="@string/save"
+        android:textSize="60px"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/save_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
