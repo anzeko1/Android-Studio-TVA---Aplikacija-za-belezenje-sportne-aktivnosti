@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     MongoClient mongoClient;
     MongoDatabase mongoDatabase;
     MongoCollection<AppUser> mongoCollection;
+    //MongoCollection<Document> mongoCollection;
     User user;
     App app;
     String AppId = "application-0-ubsgk";
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResult(App.Result<User> result) {
                 initializeMongoDB();
+
                 AppUser appUser = new AppUser(
                         new ObjectId(),
                         "test",
@@ -63,9 +65,33 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccess()) {
                         Log.v("EXAMPLE", "successfully inserted a document with id: " + task.get().getInsertedId());
                     } else {
+                        Log.v("Example", "uporabnik:" + appUser);
                         Log.e("EXAMPLE", "failed to insert documents with: " + task.getError().getErrorMessage());
                     }
                 });
+
+                //Document document = new Document().append("testId", "testId").append("userName", "test").append("password", "test").append("email", "test@gmail.com").append("gender", "test").append("dob", 22);
+                /*
+                AppUser appUser = new AppUser(
+                        new ObjectId(),
+                        "test",
+                        "test",
+                        "test@gmail.com",
+                        "test",
+                        22);
+                */
+                /*
+                mongoCollection.insertOne(document).getAsync(task -> {
+                    if (task.isSuccess()) {
+//                        BsonObjectId insertedId = result.get().getInsertedId().asObjectId();
+                        Log.v("adding", "result");
+                        //Toast.makeText(MainActivity.this, "Inserted successfully", Toast.LENGTH_LONG).show();
+                    } else {
+                        Log.v("adding", "result failed" + task.getError().toString());
+                        //Toast.makeText(MainActivity.this, "Error " + result.getError(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                */
             }
         });
 
@@ -74,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
     //ob kliku na Enter Activity preusmeri na aktivnost Enter Activity
     public void enterActivity(View view) {
         Intent intent = new Intent(MainActivity.this, EnterActivity.class);
+        startActivity(intent);
+    }
+    public void chooseActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, ChooseActivity.class);
         startActivity(intent);
     }
 
@@ -85,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         CodecRegistry pojoCodecRegistry = fromRegistries(AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
         mongoCollection = mongoDatabase.getCollection("user", AppUser.class).withCodecRegistry(pojoCodecRegistry);
+        //mongoCollection = mongoDatabase.getCollection("user");
+        //mongoCollection = mongoDatabase.getCollection("user", AppUser.class);
     }
 
 }

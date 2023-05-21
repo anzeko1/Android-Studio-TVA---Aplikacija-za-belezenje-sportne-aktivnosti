@@ -87,5 +87,10 @@ public class AppUser extends RealmObject {
         this.gender = gender;
     }
 
+    @Override
+    public String toString() {
+        return "[id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", dob=" + dob + ", gender=" + gender + "]";
+    }
+
 
 }
