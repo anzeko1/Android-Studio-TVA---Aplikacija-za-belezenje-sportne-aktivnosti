@@ -1,20 +1,15 @@
 package com.example.tva_projekt.dataObjects;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 
-public class ActivityObject {
+public class ActivityFormObject {
     private String idUser;
     private String activityName;
     private String activityType;
     private String activityTypeRecord;
     private Date activityDate;
-    private String startActivity;
-    private String stopActivity;
     private String activityLength;
-    private Double lon;
-    private Double lat;
     private String description;
     private String response;
 
@@ -48,35 +43,11 @@ public class ActivityObject {
     public void setActivityDate(Date activityDate) {
         this.activityDate = activityDate;
     }
-    public String getStartActivity() {
-        return startActivity;
-    }
-    public void setStartActivity(String startActivity) {
-        this.startActivity = startActivity;
-    }
-    public String getStopActivity() {
-        return stopActivity;
-    }
-    public void setStopActivity(String stopActivity) {
-        this.stopActivity = stopActivity;
-    }
     public String getActivityLength() {
         return activityLength;
     }
     public void setActivityLength(String activityLength) {
         this.activityLength = activityLength;
-    }
-    public Double getLon() {
-        return lon;
-    }
-    public void setLon(Double lon) {
-        this.lon = lon;
-    }
-    public Double getLat() {
-        return lat;
-    }
-    public void setLat(Double lat) {
-        this.lat = lat;
     }
     public String getDescription() {
         return description;
@@ -91,16 +62,13 @@ public class ActivityObject {
         this.response = response;
     }
 
-    public ActivityObject(String idUser, String activityName, Date activityDate, String activityTypeRecord, String startActivity, String stopActivity, String activityLength, Double lon, Double lat, String description) {
+    public ActivityFormObject(String idUser, String activityName, String activityType, String activityTypeRecord, Date activityDate, String activityLength, String description) {
         this.idUser = idUser;
         this.activityName = activityName;
-        this.activityDate = activityDate;
+        this.activityType = activityType;
         this.activityTypeRecord = activityTypeRecord;
-        this.startActivity = startActivity;
-        this.stopActivity = stopActivity;
+        this.activityDate = activityDate;
         this.activityLength = activityLength;
-        this.lon = lon;
-        this.lat = lat;
         this.description = description;
     }
 }

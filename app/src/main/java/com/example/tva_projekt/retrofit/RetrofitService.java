@@ -1,5 +1,6 @@
 package com.example.tva_projekt.retrofit;
 
+import com.example.tva_projekt.dataObjects.ActivityFormObject;
 import com.example.tva_projekt.dataObjects.AppUser;
 
 import retrofit2.Call;
@@ -10,4 +11,6 @@ public interface RetrofitService {
     //tukaj se kličejo requesti na določen URL
     @POST("user/register")
     Call<AppUser> registerUser(@Body AppUser appUser);
+    @POST("activity/insertActivityFrom")
+    Call<ActivityFormObject> insertActivityForm(@Body ActivityFormObject activityFormObject);
 }
