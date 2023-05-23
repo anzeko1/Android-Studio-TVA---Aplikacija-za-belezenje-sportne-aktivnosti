@@ -1,3 +1,9 @@
+# Zagon APIja za vnos podatkov
+Prvo je potrebno prenesti si .env datoteko ki sem dal na massenger in jo dati v root datoteko v nodeAPI
+v terminalu se usmeri v datoteko nodeAPI z ukazom: cd nodeAPI
+se namesti vse dependencije z: npm i
+zažene API z npm start
+
 # PRVI COMMIT:
 git clone https://github.com/anzeko123/tva-projekt.git
 
