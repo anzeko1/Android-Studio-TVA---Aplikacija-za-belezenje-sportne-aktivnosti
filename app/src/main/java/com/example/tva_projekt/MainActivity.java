@@ -24,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //Prvo se kreira objekt v tem primeri appUser - sedaj so ntor ročno vnešeni podatki
         //ob registraciji se bodo potem uporabili podatki iz obrazca
+        /*
         AppUser appUser = new AppUser(
                 "test",
                 "test",
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.v("Error", "Response: " + t);
             }
         });
-
+        */
     }
 
     //ob kliku na Enter Activity preusmeri na aktivnost Enter Activity
