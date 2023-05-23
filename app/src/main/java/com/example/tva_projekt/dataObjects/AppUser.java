@@ -2,34 +2,25 @@ package com.example.tva_projekt.dataObjects;
 
 import org.bson.types.ObjectId;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.RealmField;
-import io.realm.annotations.Required;
+public class AppUser {
 
-public class AppUser extends RealmObject {
-    @PrimaryKey
-    @RealmField("_id")
-    private ObjectId id;
-    @Required
+    //private ObjectId id;
     private String userName;
-    @Required
     private String password;
-    @Required
     private String email;
-    @Required
     private String gender;
-    @Required
     private Integer dob; ////to je Date of Birth za leto rojstva
     //private LocalDate dob; //to je Date of Birth za datum rojstva
+    private String response;
 
+    /*
     public ObjectId getId() {
         return id;
     }
     public void setId(ObjectId id) {
         this.id = id;
     }
-
+    */
     public String getUserName() {
         return userName;
     }
@@ -61,15 +52,20 @@ public class AppUser extends RealmObject {
     public Integer getDob() {
         return dob;
     }
-    public void setDob(Integer age) {
+    public void setDob(Integer dob) {
         this.dob = dob;
     }
-
+    public String getResponse() {
+        return response;
+    }
+    public void setResponse(String response) {
+        this.response = response;
+    }
 
     public AppUser() {
 
     }
-
+    /*
     public AppUser(ObjectId id, String userName, String password, String email, String gender, Integer dob) {
         this.id = id;
         this.userName = userName;
@@ -78,6 +74,7 @@ public class AppUser extends RealmObject {
         this.dob = dob;
         this.gender = gender;
     }
+    */
 
     public AppUser(String userName, String password, String email, String gender, Integer dob) {
         this.userName = userName;
@@ -86,11 +83,13 @@ public class AppUser extends RealmObject {
         this.dob = dob;
         this.gender = gender;
     }
-
+    /*
     @Override
     public String toString() {
-        return "[id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", dob=" + dob + ", gender=" + gender + "]";
+        //return "{userName:" + userName + ", password=" + password + ", email=" + email + ", dob=" + dob + ", gender=" + gender + "}";
+    return String.format(userName, password, email, gender, dob);
     }
+    */
 
 
 }
