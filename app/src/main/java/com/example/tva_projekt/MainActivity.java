@@ -9,82 +9,66 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.tva_projekt.dataObjects.AppUser;
+import com.example.tva_projekt.retrofit.ApiClient;
+import com.example.tva_projekt.retrofit.RetrofitService;
+import com.google.gson.Gson;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.mongodb.App;
-import io.realm.mongodb.AppConfiguration;
-import io.realm.mongodb.Credentials;
-import io.realm.mongodb.sync.SyncConfiguration;
-import io.realm.mongodb.User;
-// MongoDB Service Packages
-import io.realm.mongodb.mongo.MongoClient;
-import io.realm.mongodb.mongo.MongoDatabase;
-import io.realm.mongodb.mongo.MongoCollection;
-// Utility Packages
-import org.bson.Document;
-import org.bson.codecs.configuration.CodecRegistry;
-import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.types.ObjectId;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    Realm uiThreadRealm;
-    MongoClient mongoClient;
-    MongoDatabase mongoDatabase;
-    MongoCollection<AppUser> mongoCollection;
-    User user;
-    App app;
-    String AppId = "application-0-ubsgk";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //to spodaj do konca funkcije je zapisana poveza in insert podatkov.
-        //Zaenkrat probavam tukaj da se lahko potem naprej prenese
-        Realm.init(this);
-        app = new App(new AppConfiguration.Builder(AppId).build());
-        app.loginAsync(Credentials.anonymous(), new App.Callback<User>() {
+        //Prvo se kreira objekt v tem primeri appUser - sedaj so ntor ročno vnešeni podatki
+        //ob registraciji se bodo potem uporabili podatki iz obrazca
+        /*
+        AppUser appUser = new AppUser(
+                "test",
+                "test",
+                "test@gmail.com",
+                "test",
+                22
+        );
+        //tukaj spodaj vse convertira objekt v json obliko da se lahko pošlje
+        Gson gson = new Gson();
+        String jsonAppUser = gson.toJson(appUser);
+        RetrofitService retrofitService = ApiClient.getRetrofit().create(RetrofitService.class);
+        Call<AppUser> registerUser = retrofitService.registerUser(appUser);
+        registerUser.enqueue(new Callback<AppUser>() {
+            //če je vse vredu se vrne response
             @Override
-            public void onResult(App.Result<User> result) {
-                initializeMongoDB();
-                AppUser appUser = new AppUser(
-                        new ObjectId(),
-                        "test",
-                        "test",
-                        "test@gmail.com",
-                        "test",
-                        22);
-                mongoCollection.insertOne(appUser).getAsync(task -> {
-                    if (task.isSuccess()) {
-                        Log.v("EXAMPLE", "successfully inserted a document with id: " + task.get().getInsertedId());
-                    } else {
-                        Log.e("EXAMPLE", "failed to insert documents with: " + task.getError().getErrorMessage());
-                    }
-                });
+            public void onResponse(Call<AppUser> call, Response<AppUser> response) {
+                if(response.body() != null) {
+                    AppUser responseFromAPI = response.body();
+                    String responseString = "Response:" + responseFromAPI.getResponse();
+                    Log.d("Pretty Printed JSON :", responseString);
+                } else {
+                    Log.d("Null", "Response: " + response.body());
+                }
+            }
+            //če pride do napake v requestu nam tukaj vrže error
+            @Override
+            public void onFailure(Call<AppUser> call, Throwable t) {
+                Log.v("Error", "Response: " + t);
             }
         });
-
-
+        */
     }
+
     //ob kliku na Enter Activity preusmeri na aktivnost Enter Activity
     public void enterActivity(View view) {
         Intent intent = new Intent(MainActivity.this, EnterActivity.class);
         startActivity(intent);
     }
-
-    //vzpostavitev povezave na mongodb
-    private void initializeMongoDB() {
-        user = app.currentUser();
-        mongoClient = user.getMongoClient("mongodb-atlas");
-        mongoDatabase = mongoClient.getDatabase("tva_projekt");
-        CodecRegistry pojoCodecRegistry = fromRegistries(AppConfiguration.DEFAULT_BSON_CODEC_REGISTRY,
-                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-        mongoCollection = mongoDatabase.getCollection("user", AppUser.class).withCodecRegistry(pojoCodecRegistry);
+    public void chooseActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, ChooseActivity.class);
+        startActivity(intent);
     }
 
 }
