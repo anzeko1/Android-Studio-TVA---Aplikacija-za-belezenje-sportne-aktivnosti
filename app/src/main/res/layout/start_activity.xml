@@ -40,7 +40,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textName"
         android:layout_width="213dp"
         android:layout_height="49dp"
         android:layout_marginStart="20dp"
@@ -53,18 +53,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/map_fragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,3:2"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <org.osmdroid.views.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:layout_constraintBottom_toTopOf="@+id/textDuration"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
     <TextView
-        android:id="@+id/textDuration"
+        android:id="@+id/textDurationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -78,11 +77,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="400dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/duration"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="470dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/distance"
         android:textColor="@color/text_grey"
@@ -100,7 +113,8 @@
         android:background="#0000"
         android:src="@drawable/play"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="startActivity"/>
 
     <ImageButton
         android:id="@+id/pause"
@@ -111,7 +125,8 @@
         android:background="#0000"
         android:src="@drawable/pause"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="pauseActivity"/>
 
     <ImageButton
         android:id="@+id/stop"
@@ -122,19 +137,9 @@
         android:background="#0000"
         android:src="@drawable/stop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="stopActivity"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="340dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="608dp"
-        android:text="@string/save"
-        android:textSize="60px"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/save_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

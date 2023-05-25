@@ -4,6 +4,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,11 +20,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.Manifest;
+
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         //Prvo se kreira objekt v tem primeri appUser - sedaj so ntor ročno vnešeni podatki
         //ob registraciji se bodo potem uporabili podatki iz obrazca
@@ -76,4 +81,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void requestMyPermissions() {
+        String[] permissions = {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+        };
+
+        ActivityCompat.requestPermissions(this, permissions, 1);
+    }
 }

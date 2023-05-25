@@ -2,6 +2,7 @@ package com.example.tva_projekt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,5 +15,10 @@ public class ChooseActivity extends AppCompatActivity {
     }
     public void closeChooseActivity(View view) {
         finish();
+    }
+
+    public void enterActivity(View view) {
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
     }
 }
