@@ -1,14 +1,14 @@
 package com.example.tva_projekt;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.os.Bundle;
+
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class StartActivity extends AppCompatActivity implements OnMapReadyCallback {
-
+public class ViewActivity extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     @Override
@@ -24,5 +24,5 @@ public class StartActivity extends AppCompatActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-}
+    }
 }
