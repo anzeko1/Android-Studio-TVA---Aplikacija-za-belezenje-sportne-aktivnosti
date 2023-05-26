@@ -1,18 +1,37 @@
 package com.example.tva_projekt.dataObjects;
 
-import java.time.LocalDate;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "ActivityFormObject")
 public class ActivityFormObject {
-    private String idUser;
-    private String activityName;
-    private String activityType;
-    private String activityTypeRecord;
-    private Date activityDate;
-    private String activityLength;
-    private String description;
-    private String response;
+    @PrimaryKey(autoGenerate = true)
+    public long uid;
+    @ColumnInfo(name = "idUser")
+    public String idUser;
+    @ColumnInfo(name = "activityName")
+    public String activityName;
+    @ColumnInfo(name = "activityType")
+    public String activityType;
+    @ColumnInfo(name = "activityTypeRecord")
+    public String activityTypeRecord;
+    @ColumnInfo(name = "activityDate")
+    public Date activityDate;
+    @ColumnInfo(name = "activityLength")
+    public String activityLength;
+    @ColumnInfo(name = "description")
+    public String description;
+    public String response;
 
+    public Long getUid() {
+        return uid;
+    }
+    public void setUid(Long uid) {
+        this.uid = uid;
+    }
     public String getIdUser() {
         return idUser;
     }

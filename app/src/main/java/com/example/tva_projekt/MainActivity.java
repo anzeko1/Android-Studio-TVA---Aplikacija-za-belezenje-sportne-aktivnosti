@@ -7,17 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
-import com.example.tva_projekt.dataObjects.AppUser;
-import com.example.tva_projekt.retrofit.ApiClient;
-import com.example.tva_projekt.retrofit.RetrofitService;
-import com.google.gson.Gson;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.example.tva_projekt.enterActivity.EnterActivity;
 
 public class MainActivity extends AppCompatActivity {
     @Override
