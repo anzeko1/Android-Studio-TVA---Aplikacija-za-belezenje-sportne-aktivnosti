@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,10 +20,12 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".HistoryActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
             android:name=".ViewActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -34,7 +38,7 @@
             android:name=".ChooseActivity"
             android:exported="false" />
         <activity
-            android:name=".EnterActivity"
+            android:name=".enterActivity.EnterActivity"
             android:label="@string/enter_activity" />
         <activity
             android:name=".MainActivity"
