@@ -64,7 +64,8 @@
         android:textAllCaps="false"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="filter_week"/>
 
     <Button
         android:id="@+id/btn_monthly"
@@ -77,12 +78,15 @@
         android:textAllCaps="false"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="filter_month"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="409dp"
         android:layout_height="529dp"
-        android:layout_marginStart="20dp"
+        android:paddingHorizontal="10dp"
+        tools:listitem="@layout/recycler_view_row"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_weekly" />
