@@ -129,6 +129,16 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="age">Age</string>
+    <string name="monthly_history">Monthly history</string>
+    <string name="total_distance">Total_distance</string>
+    <string name="days_active">Days_active</string>
+    <string name="weekly_history">Weekly history</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <!--
