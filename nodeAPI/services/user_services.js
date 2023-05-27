@@ -25,8 +25,21 @@ const register = async (req,res) => {
     })
 
 }
-const login = (req,res) => {
-    register.send("login")
-}
+const login = async (req,res) => {
+    const userName = req.body.userName;
+    const password = req.body.password;
+
+    try {
+        const userLogin = await user.findOne({userName: userName, password: password});
+
+        if(userLogin){
+            res.send({"response": `Success: User with username: ${userName} logged in`})
+        } else{
+            res.send({"response": `Error: User with username: ${userName} not found`})
+        }
+    } catch(err){
+        res.send({"response": `Error: there was a error when logging in: ${err.message}`})
+        }
+};
 
 module.exports = {register, login};
