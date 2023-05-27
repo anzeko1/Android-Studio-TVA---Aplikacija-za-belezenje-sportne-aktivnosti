@@ -11,6 +11,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:id="@+id/enter_activity_main"
+            android:layout_width="320px"
+            android:layout_height="110px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="30px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/go_back_button"
+                android:layout_width="320px"
+                android:layout_height="100px"
+                android:layout_gravity="fill"
+                android:background="#0000"
+                android:text="@string/go_back"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="45px"
+                app:backgroundTint="@color/white"
+                android:onClick="closeEnterActivity"/>
+
+            <ImageButton
+                android:id="@+id/go_back"
+                android:layout_width="40px"
+                android:layout_height="120px"
+                android:background="#0000"
+                android:contentDescription="@string/enter_activity"
+                android:src="@drawable/go_back"
+                android:onClick="closeEnterActivity"/>
+        </FrameLayout>
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="213dp"
@@ -101,7 +133,7 @@
             android:layout_marginTop="449dp"
             android:background="@drawable/layout_border"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textPassword"
             android:paddingLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -112,33 +144,32 @@
             android:layout_height="35dp"
             android:layout_marginStart="98dp"
             android:layout_marginTop="504dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/toggle_button_selector"
             android:textOff="@string/female"
             android:textOn="@string/female"
-            android:backgroundTint="@color/save_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ToggleButton
-            android:id="@+id/tb2"
+            android:id="@+id/male"
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_marginStart="198dp"
             android:layout_marginTop="504dp"
-            android:background="@drawable/layout_border"
+            android:background="@drawable/toggle_button_selector"
             android:textOff="@string/male"
             android:textOn="@string/male"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/textAge"
+            android:id="@+id/textDob"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="540dp"
             android:fontFamily="@font/open_sans"
-            android:text="@string/age"
+            android:text="@string/dob"
             android:textColor="@color/text_grey"
             android:textFontWeight="900"
             android:textSize="40px"
@@ -146,26 +177,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editAge"
+            android:id="@+id/editDob"
             android:layout_width="365dp"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="570dp"
             android:background="@drawable/layout_border"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:paddingLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/signInButton"
             android:layout_width="340dp"
             android:layout_height="60dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="630dp"
             android:backgroundTint="@color/save_button"
-            android:onClick="enterActivityInput"
             android:text="@string/register"
             android:textAllCaps="false"
             android:textSize="60px"

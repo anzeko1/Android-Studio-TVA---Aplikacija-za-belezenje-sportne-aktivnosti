@@ -139,6 +139,8 @@
     <string name="total_distance">Total_distance</string>
     <string name="days_active">Days_active</string>
     <string name="weekly_history">Weekly history</string>
+    <string name="dob">Birth year</string>
+    <string name="log_out">Log Out</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <!--
