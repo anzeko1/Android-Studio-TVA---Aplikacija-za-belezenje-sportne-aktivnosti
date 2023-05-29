@@ -17,10 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tva_projekt.R;
 import com.example.tva_projekt.dataObjects.ActivityFormObject;
-import com.example.tva_projekt.dataObjects.User;
-import com.example.tva_projekt.retrofit.ApiClient;
-import com.example.tva_projekt.retrofit.RetrofitService;
+import com.example.tva_projekt.dataObjects.ActivityRoomObject;
 import com.example.tva_projekt.enterActivity.roomDatabase.AppDatabase;
+import com.example.tva_projekt.retrofit.ApiClient;
+import com.example.tva_projekt.retrofit.GetPredefinedActivitiesResult;
+import com.example.tva_projekt.retrofit.RetrofitService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class EnterActivity extends AppCompatActivity {
     EditText activityType = null;
     EditText activityLength = null;
     EditText description = null;
-    private List<User> userList;
+    private List<ActivityRoomObject> activityRoomObjectList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,37 @@ public class EnterActivity extends AppCompatActivity {
 
 
     }
+    public void getPredefinedActivity(View view) {
+        activityType = (EditText) findViewById(R.id.select_activities);
+        activityLength = (EditText) findViewById(R.id.editDuration);
+        description = (EditText) findViewById(R.id.editActivityDetails);
+        String stringActivityType = activityType.getText().toString();
+
+        RetrofitService retrofitService = ApiClient.getRetrofit().create(RetrofitService.class);
+        Call<List<GetPredefinedActivitiesResult>> getActivity = retrofitService.getPredefinedActivities(stringActivityType);
+
+
+        getActivity.enqueue(new Callback<List<GetPredefinedActivitiesResult>>() {
+            @Override
+            public void onResponse(Call<List<GetPredefinedActivitiesResult>> getActivity, Response<List<GetPredefinedActivitiesResult>> response) {
+                List<GetPredefinedActivitiesResult> adslist = response.body();
+                Integer length = adslist.get(0).getActivitylength();
+                String descriptionActivity = adslist.get(0).getDescription();
+                activityLength.setText(Integer.toString(length));
+                description.setText(descriptionActivity);
+                Toast.makeText(getApplicationContext(),"You seccessfully got the activity",Toast.LENGTH_SHORT).show();
+                System.out.println(descriptionActivity + "-----");// + Sao2 + "-----" + telesnaTmeperatura);
+            }
+
+            @Override
+            public void onFailure(Call<List<GetPredefinedActivitiesResult>> getActivity, Throwable t) {
+                Toast.makeText(EnterActivity.this, "There was a error getting the activity" + t.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Log.v("example", "Error: " + t.getMessage().toString());
+            }
+        });
+
+
+    }
     public void enterActivityInput(View view) {
         //Pridobitev podatkov iz obrasca
         activityName = (EditText) findViewById(R.id.editActivityName);
@@ -97,17 +129,17 @@ public class EnterActivity extends AppCompatActivity {
         String formatedDate = dateFormat.format(date);
         String activityTypeRecord = "manualRecord";
         String idUser = "test";
-        User user = new User();
-        user.idUser = idUser;
-        user.activityName = stringActivityName;
-        user.activityType = stringActivityType;
-        user.activityTypeRecord = activityTypeRecord;
-        user.activityDate = date;
-        user.activityLength = stringActivityLength;
-        user.description = stringDescription;
+        ActivityRoomObject activityRoomObject = new ActivityRoomObject();
+        activityRoomObject.idUser = idUser;
+        activityRoomObject.activityName = stringActivityName;
+        activityRoomObject.activityType = stringActivityType;
+        activityRoomObject.activityTypeRecord = activityTypeRecord;
+        activityRoomObject.activityDate = date;
+        activityRoomObject.activityLength = stringActivityLength;
+        activityRoomObject.description = stringDescription;
 
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        db.activityFormDao().insertActivity(user);
+        db.activityFormDao().insertActivity(activityRoomObject);
         //vnos podatkov v funkcijo
         retrofitRequest(idUser, stringActivityName, stringActivityType, activityTypeRecord, date, stringActivityLength, stringDescription);
         activityName.getText().clear();
@@ -115,7 +147,7 @@ public class EnterActivity extends AppCompatActivity {
         activityLength.getText().clear();
         description.getText().clear();
         //AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        List<User> activityList = db.activityFormDao().getAll();
+        List<ActivityRoomObject> activityList = db.activityFormDao().getAll();
         //getData();
         for (int i = 0; i < activityList.size(); i++) {
             Log.v("example", "response: " + (activityList.get(i)));
@@ -171,9 +203,9 @@ public class EnterActivity extends AppCompatActivity {
         finish();
     }
     private void getData() {
-        userList = new ArrayList<>();
+        activityRoomObjectList = new ArrayList<>();
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
-        userList = db.activityFormDao().getAll();
+        activityRoomObjectList = db.activityFormDao().getAll();
 
     }
 

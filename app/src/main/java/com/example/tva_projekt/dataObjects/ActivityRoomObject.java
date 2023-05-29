@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity
-public class User {
+public class ActivityRoomObject {
     @PrimaryKey(autoGenerate = true)
     public long uid;
     @ColumnInfo(name = "idUser")
