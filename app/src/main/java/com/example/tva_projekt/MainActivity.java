@@ -1,23 +1,25 @@
 package com.example.tva_projekt;
 
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tva_projekt.checkConnection.MyReceiver;
 import com.example.tva_projekt.enterActivity.EnterActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button loginPageButton;
     private Button registerPageButton;
     private Button logoutButton;
+    private BroadcastReceiver MyReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 logoutUser();
             }
         });
+        MyReceiver = new MyReceiver();
+        broadcastIntent();
     }
 
     private void updateUI() {
@@ -137,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+    public void broadcastIntent() {
+        registerReceiver(MyReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
 };

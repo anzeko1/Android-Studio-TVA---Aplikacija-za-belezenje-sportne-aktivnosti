@@ -11,10 +11,10 @@ app.use(express.urlencoded());
 
 const userRouter = require("./routes/user_routes");
 const activityRoutes = require("./routes/activity_routes");
-//const predefinedActivityRouter = require("./routes/predifined_activity_routes");
+const predefinedActivityRouter = require("./routes/predifined_activity_routes");
 app.use('/user', userRouter);
 app.use('/activity', activityRoutes);
-//app.use('predefinedActivity', predefinedActivityRouter);
+app.use('/predefinedActivity', predefinedActivityRouter);
 
 
 const PORT = process.env.PORT || 3000;

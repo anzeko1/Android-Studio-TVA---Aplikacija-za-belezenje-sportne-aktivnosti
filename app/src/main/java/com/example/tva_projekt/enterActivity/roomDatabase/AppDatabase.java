@@ -8,10 +8,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.tva_projekt.dataObjects.User;
+import com.example.tva_projekt.dataObjects.ActivityRoomObject;
 import com.example.tva_projekt.otherClasses.DateConverter;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {ActivityRoomObject.class}, version = 1)
 @TypeConverters({DateConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ActivityFormDao activityFormDao();
