@@ -9,8 +9,8 @@
 
     <FrameLayout
         android:id="@+id/enter_activity_main"
-        android:layout_width="320px"
-        android:layout_height="110px"
+        android:layout_width="500px"
+        android:layout_height="130px"
         android:layout_marginStart="30px"
         android:layout_marginTop="30px"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +18,10 @@
 
         <Button
             android:id="@+id/go_back_button"
-            android:layout_width="320px"
-            android:layout_height="100px"
+            android:layout_width="500px"
+            android:layout_marginStart="20dp"
+            android:gravity="left"
+            android:layout_height="130px"
             android:layout_gravity="fill"
             android:background="#0000"
             android:onClick="closeEnterActivity"
