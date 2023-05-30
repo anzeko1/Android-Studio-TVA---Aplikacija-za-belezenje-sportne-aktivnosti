@@ -11,5 +11,6 @@
     <color name="activity_grey">#fafafa</color>
     <color name="border_grey">#e3e3e3</color>
     <color name="text_grey">#969696</color>
+    <color name="enter_history_grey">#4a4a4a</color>
     <color name="save_button">#12cdd4</color>
 </resources>

@@ -7,36 +7,77 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="4dp">
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="2dp"/>
+        android:layout_margin="4dp"
+        android:layout_marginBottom="40dp">
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/activityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Line 1"
+            android:text="@string/activity_name_enter_history"
             android:textSize="50px"
+            android:layout_marginStart="10dp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView"/>
+            android:textColor="@color/enter_history_grey"/>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/dateTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView"
+            android:layout_below="@+id/activityName"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="34dp"
-            android:layout_marginTop="29dp"
-            android:layout_toEndOf="@+id/imageView"
-            android:text="Line 2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/date_enter_history"
             android:textColor="@android:color/black"
-            android:textSize="30px"
+            android:textSize="40px"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityName"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/date_enter_history"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/durationTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityName"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/duration_enter_history"
+            android:textColor="@android:color/black"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activityName"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/duration_enter_history"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="40px"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:src="@drawable/baseline_delete_24"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="2dp"
+            android:layout_marginStart="350dp" />
 
     </RelativeLayout>
 
