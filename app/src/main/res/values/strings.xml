@@ -6,6 +6,7 @@
     <string name="enter_activity">Enter Activity</string>
     <string name="choose_activity">Choose Activity</string>
     <string name="history_activity">Activity History</string>
+    <string name="visual_representation">Visual Representation</string>
     <string name="activity_name">Activity name</string>
     <string name="activity_type">Type of activity</string>
     <string name="duration">Duration</string>

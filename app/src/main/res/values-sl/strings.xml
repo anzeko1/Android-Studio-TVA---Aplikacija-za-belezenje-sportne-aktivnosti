@@ -7,6 +7,7 @@
     <string name="enter_activity">Vpiši aktivnost</string>
     <string name="choose_activity">Izberi aktivnost</string>
     <string name="history_activity">Zgodovina aktivnosti</string>
+    <string name="visual_representation">Vizualna ponazoritev</string>
     <string name="activity_name">Ime aktivnosti</string>
     <string name="activity_type">Tip aktivnosti</string>
     <string name="duration">Trajanje</string>

@@ -1,8 +1,12 @@
 package com.example.tva_projekt.dataObjects;
 
+import org.osmdroid.util.GeoPoint;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ActivityObject {
     private String idUser;
@@ -16,6 +20,10 @@ public class ActivityObject {
     private Double lon;
     private Double lat;
     private String description;
+
+    public long activityDuration;
+
+    public List<GeoPoint> pathCoordinates;
     private String response;
 
     public String getIdUser() {
@@ -102,5 +110,9 @@ public class ActivityObject {
         this.lon = lon;
         this.lat = lat;
         this.description = description;
+    }
+
+    public ActivityObject() {
+        this.pathCoordinates = new ArrayList<>();
     }
 }

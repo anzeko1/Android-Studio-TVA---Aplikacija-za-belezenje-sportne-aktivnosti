@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.example.tva_projekt.common.HistoryAdapter;
 import com.example.tva_projekt.common.OnRecyclerViewCallback;
+import com.example.tva_projekt.common.TVAapplication;
+
+import org.osmdroid.util.GeoPoint;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,21 +24,22 @@ import java.util.List;
 
 public class HistoryActivity extends AppCompatActivity implements OnRecyclerViewCallback {
     List<HistoryModel> historyModels = new ArrayList<>();
-
+    TVAapplication app;
     private HistoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_activity);
-
+        app = (TVAapplication)getApplication();
         adapter = new HistoryAdapter(this, historyModels);
 
         historyModels = new ArrayList<>();
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", R.drawable.running));
-        historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", R.drawable.cycling));
-        historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27", R.drawable.walking));
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", R.drawable.running));
+        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", 12.5, R.drawable.running));
+        historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 15.2, R.drawable.cycling));
+        historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27",10.5, R.drawable.walking));
+        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", 5.5, R.drawable.running));
+
 
         adapter.setData(historyModels);
 
@@ -46,6 +51,9 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
     @Override
     public void Callback(int Index) {
         Log.d("HistoryActivity", "Callback: " + Index);
+        app.selectedItem = historyModels.get(Index);
+        Intent viewIntent = new Intent(this, ViewActivity.class);
+        startActivity(viewIntent);
     }
 
     public void filter_week(View view) {
