@@ -12,6 +12,10 @@
     <string name="duration">Trajanje</string>
     <string name="distance">Razdalja</string>
     <string name="date">Datum</string>
+    <string name="date_enter_history">Datum: </string>
+    <string name="duration_enter_history">Trajanje: </string>
+    <string name="activity_name_enter_history">Ime aktivnosti: </string>
+    <string name="description_enter_history">Opis: </string>
     <string name="activity_details">Podrobnosti aktivnosti</string>
     <string name="save">Shrani</string>
     <string name="getPredefindActivity">Pridobi aktivnosti za ta tip</string>

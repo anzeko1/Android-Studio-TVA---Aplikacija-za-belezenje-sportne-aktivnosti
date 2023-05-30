@@ -11,6 +11,10 @@
     <string name="duration">Duration</string>
     <string name="distance">Distance</string>
     <string name="date">Date</string>
+    <string name="date_enter_history">Date: </string>
+    <string name="duration_enter_history">Duration: </string>
+    <string name="activity_name_enter_history">Activity name: </string>
+    <string name="description_enter_history">Description: </string>
     <string name="activity_details">Activity details</string>
     <string name="save">Save</string>
     <string name="getPredefindActivity">Get a Activity for This Type</string>
@@ -61,15 +65,15 @@
         "and use of imagery guide visual treatments. These elements do far more than please the "
         "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
         "imagery, large scale typography, and intentional white space create a bold and graphic "
-        "interface that immerse the activityRoomObject in the experience.\n"
-        "An emphasis on activityRoomObject actions makes core functionality immediately apparent and provides "
-        "waypoints for the activityRoomObject.\n\n"
+        "interface that immerse the activityRealmObject in the experience.\n"
+        "An emphasis on activityRealmObject actions makes core functionality immediately apparent and provides "
+        "waypoints for the activityRealmObject.\n\n"
 
         "Motion provides meaning.\n\n"
 
-        "Motion respects and reinforces the activityRoomObject as the prime mover. Primary activityRoomObject actions are "
+        "Motion respects and reinforces the activityRealmObject as the prime mover. Primary activityRealmObject actions are "
         "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the activityRoomObject without "
+        "All action takes place in a single environment. Objects are presented to the activityRealmObject without "
         "breaking the continuity of experience even as they transform and reorganize.\n"
         "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
         "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
@@ -108,7 +112,7 @@
         "Responsive elevation and dynamic elevation offsets.\n\n"
 
         "Some component types have responsive elevation, meaning they change elevation in response "
-        "to activityRoomObject input (e.g., normal, focused, and pressed) or system events. These elevation "
+        "to activityRealmObject input (e.g., normal, focused, and pressed) or system events. These elevation "
         "changes are consistently implemented using dynamic elevation offsets.\n"
         "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
         "to the component’s resting state. They ensure that elevation changes are consistent "
@@ -125,10 +129,10 @@
         "whether on a per component basis or using the entire app layout.\n"
         "On a component level, components can move or be removed before they cause interference. "
         "For example, a floating action button (FAB) can disappear or move off screen before a "
-        "activityRoomObject picks up a card, or it can move if a snackbar appears.\n"
+        "activityRealmObject picks up a card, or it can move if a snackbar appears.\n"
         "On the layout level, design your app layout to minimize opportunities for interference. "
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
-        "when a activityRoomObject tries to pick up one of cards.\n\n"
+        "when a activityRealmObject tries to pick up one of cards.\n\n"
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
