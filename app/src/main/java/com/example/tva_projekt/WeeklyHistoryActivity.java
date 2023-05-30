@@ -1,105 +1,99 @@
 package com.example.tva_projekt;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.core.content.ContextCompat;
 
-import com.example.tva_projekt.common.HistoryAdapter;
-import com.example.tva_projekt.common.OnRecyclerViewCallback;
+import lecho.lib.hellocharts.model.Axis;
+import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.Line;
+import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
+import lecho.lib.hellocharts.model.Viewport;
+import lecho.lib.hellocharts.util.AxisAutoValues;
+import lecho.lib.hellocharts.view.LineChartView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-public class WeeklyHistoryActivity extends AppCompatActivity implements OnRecyclerViewCallback {
-    List<HistoryModel> historyModels = new ArrayList<>();
+public class WeeklyHistoryActivity extends AppCompatActivity {
 
-    private HistoryAdapter adapter;
+    private LineChartView lineChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_activity);
+        setContentView(R.layout.history_weekly);
 
-        adapter = new HistoryAdapter(this, historyModels);
+        lineChartView = findViewById(R.id.lineChartView);
 
-        historyModels = new ArrayList<>();
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24",2.0, R.drawable.running));
-        historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 4.5, R.drawable.cycling));
-        historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27", 10.1, R.drawable.walking));
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", 7.3, R.drawable.running));
+        // Sample data for demonstration
+        List<Integer> stepsPerDay = new ArrayList<>();
+        stepsPerDay.add(2500);
+        stepsPerDay.add(3500);
+        stepsPerDay.add(4000);
+        stepsPerDay.add(3000);
+        stepsPerDay.add(5000);
+        stepsPerDay.add(6000);
+        stepsPerDay.add(4500);
 
-        adapter.setData(historyModels);
+        // Create axis values for X-axis (days)
+        List<AxisValue> axisValuesX = new ArrayList<>();
+        for (int i = 0; i < stepsPerDay.size(); i++) {
+            axisValuesX.add(new AxisValue(i).setLabel("Day " + (i + 1)));
+        }
 
-        RecyclerView rw = findViewById(R.id.recyclerView);
-        rw.setLayoutManager(new LinearLayoutManager(this));
-        rw.setAdapter(adapter);
+        // Create data points for the line chart
+        List<PointValue> values = new ArrayList<>();
+        for (int i = 0; i < stepsPerDay.size(); i++) {
+            values.add(new PointValue(i, stepsPerDay.get(i)));
+        }
+
+        // Create a line and set its attributes
+        Line line = new Line(values)
+                .setColor(ContextCompat.getColor(this, R.color.save_button))
+                .setCubic(true)
+                .setHasPoints(true)
+                .setShape(ValueShape.CIRCLE);
+
+        // Create a list of lines to be displayed in the chart
+        List<Line> lines = new ArrayList<>();
+        lines.add(line);
+
+        // Create and customize the chart data
+        LineChartData data = new LineChartData();
+        data.setLines(lines);
+
+        // Set X-axis and Y-axis attributes
+        Axis axisX = new Axis(axisValuesX)
+                .setHasLines(true)
+                .setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        Axis axisY = new Axis().setHasLines(true);
+
+        // Set the chart data and axes
+        data.setAxisXBottom(axisX);
+        data.setAxisYLeft(axisY);
+
+        // Set the chart data to the chart view
+        lineChartView.setLineChartData(data);
+
+        // Set the initial viewport for the chart
+        Viewport viewport = new Viewport(lineChartView.getMaximumViewport());
+        viewport.bottom = 0;
+        viewport.top = getMaxSteps(stepsPerDay);
+        lineChartView.setMaximumViewport(viewport);
+        lineChartView.setCurrentViewport(viewport);
     }
 
-    @Override
-    public void Callback(int Index) {
-        Log.d("HistoryActivity", "Callback: " + Index);
-    }
-
-    public void filter_week(View view) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, -7); // Subtract 7 days from current date
-
-        Date sevenDaysAgo = calendar.getTime();
-
-        List<HistoryModel> filteredList = new ArrayList<>();
-
-        for (HistoryModel item : historyModels) {
-            try {
-                Date itemDate = dateFormat.parse(item.getActivityDate());
-
-                if (itemDate.after(sevenDaysAgo)) {
-                    filteredList.add(item);
-                }
-            } catch (ParseException e) {
-                Log.e("HistoryActivity", "filter_week: ", e);
+    private int getMaxSteps(List<Integer> stepsPerDay) {
+        int maxSteps = 0;
+        for (int steps : stepsPerDay) {
+            if (steps > maxSteps) {
+                maxSteps = steps;
             }
         }
-        adapter.setData(filteredList);
+        return maxSteps;
     }
-
-    public void filter_month(View view) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -1);
-
-        Date oneMonthAgo = calendar.getTime();
-
-        List<HistoryModel> filteredList = new ArrayList<>();
-
-        for (HistoryModel item : historyModels) {
-            try {
-                Date itemDate = dateFormat.parse(item.getActivityDate());
-
-                if (itemDate.after(oneMonthAgo)) {
-                    filteredList.add(item);
-                }
-            } catch (ParseException e) {
-                Log.e("HistoryActivity", "filter_week: ", e);
-            }
-        }
-        adapter.setData(filteredList);
-    }
-
-    /* private void setHistoryModels() {
-        String[] activityNames = getResources().getStringArray(R.array.activities_array);
-        // še morem impelementirat za podatek iz baze za duration in date
-
-        for (int i = 0; i<activityNames.length; i++) {
-            historyModels.add(new HistoryModel(activityNames[]));
-        }
-    }*/
 }
