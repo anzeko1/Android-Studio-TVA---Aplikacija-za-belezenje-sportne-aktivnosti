@@ -20,6 +20,7 @@ public class ActivityObject {
     private Double lon;
     private Double lat;
     private String description;
+    public int steps;
 
     public long activityDuration;
 
