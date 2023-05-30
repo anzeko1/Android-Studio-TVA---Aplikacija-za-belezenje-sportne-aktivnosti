@@ -43,54 +43,67 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="213dp"
+        android:layout_width="260dp"
         android:layout_height="49dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:fontFamily="@font/open_sans"
-        android:text="@string/history_activity"
+        android:text="@string/weekly_history"
         android:textColor="@color/black"
         android:textFontWeight="900"
         android:textSize="80px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_weekly"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="140dp"
-        android:backgroundTint="@color/save_button"
-        android:text="@string/btn_weekly"
-        android:textAllCaps="false"
-        android:textSize="60px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="filter_week"/>
-
-    <Button
-        android:id="@+id/btn_monthly"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="140dp"
-        android:backgroundTint="@color/save_button"
-        android:text="@string/btn_monthly"
-        android:textAllCaps="false"
-        android:textSize="60px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="filter_month"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="409dp"
-        android:layout_height="529dp"
+        android:layout_height="320dp"
         android:paddingHorizontal="10dp"
-        tools:listitem="@layout/recycler_view_row"
-        android:layout_marginTop="20dp"
+        tools:listitem="@layout/recycler_view_row_history"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_weekly" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="460dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/duration"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="460dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/total_distance"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textDaysActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="460dp"
+        android:fontFamily="@font/open_sans"
+        android:text="@string/days_active"
+        android:textColor="@color/text_grey"
+        android:textFontWeight="900"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

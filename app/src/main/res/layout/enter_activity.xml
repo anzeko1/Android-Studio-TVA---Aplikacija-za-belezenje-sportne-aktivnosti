@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EnterActivity">
+    tools:context=".enterActivity.EnterActivity">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -13,8 +13,8 @@
 
     <FrameLayout
         android:id="@+id/enter_activity_main"
-        android:layout_width="320px"
-        android:layout_height="110px"
+        android:layout_width="500px"
+        android:layout_height="130px"
         android:layout_marginStart="30px"
         android:layout_marginTop="30px"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,10 @@
 
         <Button
             android:id="@+id/go_back_button"
-            android:layout_width="320px"
-            android:layout_height="100px"
+            android:layout_width="500px"
+            android:layout_marginStart="20dp"
+            android:gravity="left"
+            android:layout_height="130px"
             android:layout_gravity="fill"
             android:background="#0000"
             android:text="@string/go_back"
@@ -97,7 +99,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <AutoCompleteTextView
         android:id="@+id/select_activities"
         android:layout_width="210dp"
         android:layout_height="35dp"
@@ -105,8 +108,7 @@
         android:layout_marginTop="245dp"
         android:background="@drawable/layout_border"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textDuration"
@@ -140,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="345dp"
         android:fontFamily="@font/open_sans"
         android:text="@string/activity_details"
         android:textColor="@color/text_grey"
@@ -154,21 +156,22 @@
         android:layout_width="365dp"
         android:layout_height="250dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="325dp"
+        android:layout_marginTop="370dp"
         android:background="@drawable/layout_border"
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:singleLine="false"/>
 
     <Button
         android:id="@+id/button"
-        android:layout_width="340dp"
+        android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="608dp"
+        android:layout_marginTop="640dp"
         android:text="@string/save"
         android:textSize="60px"
         android:textAllCaps="false"
@@ -176,6 +179,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:onClick="enterActivityInput"/>
+
+    <Button
+        android:id="@+id/seeEnteredActivities"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="640dp"
+        android:backgroundTint="@color/save_button"
+        android:text="@string/enteredActivities"
+        android:textAllCaps="false"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="viewEnteredHistory"/>
+
+    <Button
+        android:id="@+id/getPredefinedActivity"
+        android:layout_width="365dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="290dp"
+        android:backgroundTint="@color/save_button"
+        android:text="@string/getPredefindActivity"
+        android:textAllCaps="false"
+        android:textSize="40px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="getPredefinedActivity"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

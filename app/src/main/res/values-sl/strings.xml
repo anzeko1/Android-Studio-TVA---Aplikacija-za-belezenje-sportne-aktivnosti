@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">tva-projekt</string>
+    <string name="login">Prijava</string>
+    <string name="register">Registracija</string>
+    <string name="start_activity">Začni aktivnost</string>
+    <string name="enter_activity">Vpiši aktivnost</string>
+    <string name="choose_activity">Izberi aktivnost</string>
+    <string name="history_activity">Zgodovina aktivnosti</string>
+    <string name="activity_name">Ime aktivnosti</string>
+    <string name="activity_type">Tip aktivnosti</string>
+    <string name="duration">Trajanje</string>
+    <string name="distance">Razdalja</string>
+    <string name="date">Datum</string>
+    <string name="activity_details">Podrobnosti aktivnosti</string>
+    <string name="save">Shrani</string>
+    <string name="getPredefindActivity">Pridobi aktivnosti za ta tip</string>
+    <string name="enteredActivities">Vpisane aktivnosti</string>
+    <string name="go_back">Pojdi nazaj</string>
+    <string name="btn_weekly">Tedensko</string>
+    <string name="btn_monthly">Mesečno</string>
+    <string name="running">Tek</string>
+    <string name="walking">Hoja</string>
+    <string name="cycling">Kolesarjenje</string>
+    <string name="allRoomActivities">Vse aktivnosti</string>
+    <string name="title_activity_choose_second">Izberi drugo aktivnost</string>
+    <string name="first_fragment_label">Prvi fragment</string>
+    <string name="second_fragment_label">Drugi fragment</string>
+    <string name="next">Naslednji</string>
+    <string name="previous">Prejšnji</string>
+    <string name="username">Uporabniško ime</string>
+    <string name="password">Geslo</string>
+    <string name="email">Email</string>
+    <string name="female">Ženska</string>
+    <string name="male">Moški</string>
+    <string name="age">Starost</string>
+    <string name="monthly_history">Mesečna zgodovina</string>
+    <string name="total_distance">Skupna razdalja</string>
+    <string name="days_active">Št. aktivnih dni</string>
+    <string name="weekly_history">Tedenska zgodovina</string>
+    <string name="dob">Leto rojstva</string>
+    <string name="log_out">Odjava</string>
+</resources>
