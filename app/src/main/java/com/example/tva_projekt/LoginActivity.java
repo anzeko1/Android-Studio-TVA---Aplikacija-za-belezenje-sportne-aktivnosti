@@ -12,6 +12,9 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.tva_projekt.common.TVAapplication;
+import com.example.tva_projekt.dataObjects.AppUser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,10 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private String username;
 
+    private TVAapplication app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        app = (TVAapplication)getApplication();
 
         etUsername = findViewById(R.id.editUsername);
         etPassword = findViewById(R.id.editPassword);
@@ -90,6 +97,9 @@ public class LoginActivity extends AppCompatActivity {
                     // InputStream inputStream = connection.getInputStream();
                     // String responseBody = readInputStream(inputStream);
                     // inputStream.close();
+
+                    //TODO shrani podatke o uporabniko v TAVAPlication class- pod mapo common
+                    // app.user = new AppUser(username);
                     return true;
                 } else {
                     // Failed login

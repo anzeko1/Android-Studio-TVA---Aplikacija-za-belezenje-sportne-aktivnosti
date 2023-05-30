@@ -19,24 +19,28 @@ const activitySchema = new Schema({
         type: Date,
         required: true
     },
-    startActivity: {
+    activityDuration: {
         type: String,
     },
-    stopActivity: {
+    activityDistance: {
         type: String,
     },
-    activityLength: {
-        type: String,
-    },
-    lon: {
-        type: String,
-    },
-    lat: {
-        type: String,
-    },
+    coordinates: [
+        {
+            lat: {
+                type: Number,
+                required: true
+            },
+            long: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
     description: {
         type: String,
     }
-}, {collection: 'activity'})
+
+}, { collection: 'activity' });
 
 module.exports.activity = mongoose.model('activity', activitySchema);

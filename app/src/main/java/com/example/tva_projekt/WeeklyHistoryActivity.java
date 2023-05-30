@@ -31,10 +31,10 @@ public class WeeklyHistoryActivity extends AppCompatActivity implements OnRecycl
         adapter = new HistoryAdapter(this, historyModels);
 
         historyModels = new ArrayList<>();
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", R.drawable.running));
-        historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", R.drawable.cycling));
-        historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27", R.drawable.walking));
-        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", R.drawable.running));
+        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24",2.0, R.drawable.running));
+        historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 4.5, R.drawable.cycling));
+        historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27", 10.1, R.drawable.walking));
+        historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", 7.3, R.drawable.running));
 
         adapter.setData(historyModels);
 

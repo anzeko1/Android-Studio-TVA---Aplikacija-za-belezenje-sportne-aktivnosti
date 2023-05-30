@@ -3,12 +3,21 @@ package com.example.tva_projekt.dataObjects;
 import org.bson.types.ObjectId;
 
 public class AppUser {
+
+    private String idUser;
     private String userName;
     private String password;
     private String email;
     private String gender;
     private Integer dob;
     private String response;
+
+    public String getIdUser() {
+        return idUser;
+    }
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
 
     public String getUserName() {
         return userName;
