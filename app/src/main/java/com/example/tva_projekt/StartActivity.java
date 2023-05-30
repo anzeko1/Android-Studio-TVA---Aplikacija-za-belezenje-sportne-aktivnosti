@@ -5,17 +5,30 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.tva_projekt.common.TVAapplication;
 import com.example.tva_projekt.dataObjects.ActivityObject;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
@@ -26,9 +39,11 @@ import android.Manifest;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements SensorEventListener {
 
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
 
     TextView activityName;
     TextView activityDuration;
@@ -53,6 +68,11 @@ public class StartActivity extends AppCompatActivity {
     Double totalDistance;
 
     ActivityObject activityObject;
+
+    SensorManager sensorManager;
+    Sensor stepSensor;
+
+    int stepCount;
 
     private Location lastLocation;
 
@@ -103,6 +123,8 @@ public class StartActivity extends AppCompatActivity {
             }
         };
 
+
+
         handler = new Handler();
         elapsedTime = 0L;
         startTime = 0L;
@@ -114,6 +136,9 @@ public class StartActivity extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             }
         };
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        stepSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
     }
 
@@ -138,12 +163,15 @@ public class StartActivity extends AppCompatActivity {
         activityObject.setIdUser(app.user.getIdUser());
 
         totalDistance = 0.0;
+        stepCount = 0;
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         IsTimerRunning = true;
         startTime = System.currentTimeMillis();
         handler.postDelayed(runnable, 0);
 
+
+        sensorManager.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     private void requestMyPermissions() {
@@ -162,7 +190,17 @@ public class StartActivity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
         elapsedTime = 0L;
         activityObject.activityDuration = elapsedTime;
-        //TODO DA SE VPIŠE V BAZO
+        activityObject.steps = stepCount;
+        String URL = "http://localhost:3000/insertActivity";
+        try {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(new Gson().toJson(activityObject)), response -> {
+                Log.e("Response", "onResponse: " + response.toString());
+                    Toast.makeText(StartActivity.this, "Activity saved", Toast.LENGTH_SHORT).show();
+            }, error -> Log.e("Response", "onErrorResponse: " + error.getMessage()));
+            requestQueue.add(request);
+        } catch (JSONException e) {
+            Log.e("Response", "onErrorResponse: " + e.getMessage());
+        }
     }
 
     public void pauseActivity(android.view.View view) {
@@ -181,6 +219,7 @@ public class StartActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        sensorManager.unregisterListener(this);
     }
     @Override
     public void onDestroy() {
@@ -206,4 +245,17 @@ public class StartActivity extends AppCompatActivity {
         return deg * (Math.PI/180);
     }
 
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (IsTimerRunning) {
+            if (event.sensor.getType() == Sensor.TYPE_STEP_COUNTER) {
+                stepCount = (int) event.values[0];
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
 }

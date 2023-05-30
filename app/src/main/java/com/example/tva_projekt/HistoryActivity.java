@@ -34,6 +34,8 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
         app = (TVAapplication)getApplication();
         adapter = new HistoryAdapter(this, historyModels);
 
+        //TODO: Get data from database
+
         historyModels = new ArrayList<>();
         historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", 12.5, R.drawable.running));
         historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 15.2, R.drawable.cycling));

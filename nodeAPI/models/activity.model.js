@@ -37,6 +37,9 @@ const activitySchema = new Schema({
             }
         }
     ],
+    steps: {
+            type: Number,
+        },
     description: {
         type: String,
     }
