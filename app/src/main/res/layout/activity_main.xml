@@ -40,7 +40,7 @@
         android:onClick="loginActivity"
         android:text="@string/login"
         android:textAllCaps="false"
-        android:textColor="@color/login"
+        android:textColor="@color/save_button"
         android:textSize="45px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,7 @@
         android:onClick="registerActivity"
         android:text="@string/register"
         android:textAllCaps="false"
-        android:textColor="@color/login"
+        android:textColor="@color/save_button"
         android:textSize="45px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,7 +69,7 @@
         android:background="#0000"
         android:text="@string/log_out"
         android:textAllCaps="false"
-        android:textColor="@color/login"
+        android:textColor="@color/save_button"
         android:textSize="45px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
