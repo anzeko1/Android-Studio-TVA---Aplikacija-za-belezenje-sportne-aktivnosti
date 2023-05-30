@@ -5,6 +5,7 @@ buildscript {
         maven {
             url "https://maven.google.com"
         }
+        "https://jitpack.io"
     }
 
     dependencies {
