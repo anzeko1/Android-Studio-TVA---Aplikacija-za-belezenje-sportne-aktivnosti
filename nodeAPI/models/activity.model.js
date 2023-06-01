@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const activitySchema = new Schema({
     idUser: {
         type: String,
+        required: true
     },
     activityName: {
         type: String,

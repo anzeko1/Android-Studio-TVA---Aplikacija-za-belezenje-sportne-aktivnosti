@@ -210,7 +210,8 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
         try {
             String URL = "http://192.168.1.14:3000/activity/createActivity";
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(new Gson().toJson(activityObject)), response -> {
+            var body = new JSONObject(new Gson().toJson(activityObject));
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, body, response -> {
                 Log.i("Volley-ok", "onResponse: " + response.toString());
                 Toast.makeText(StartActivity.this, "Activity saved", Toast.LENGTH_SHORT).show();
             }, error -> Log.e("Volley-err", "onErrorResponse: " + error.getMessage()));
