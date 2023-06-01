@@ -1,5 +1,6 @@
 package com.example.tva_projekt;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,12 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tva_projekt.common.TVAapplication;
-import com.example.tva_projekt.dataObjects.AppUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         // Create a JSON object with the login data
         JSONObject loginData = new JSONObject();
         try {
-            loginData.put("username", username);
+            loginData.put("userName", username);
             loginData.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -72,7 +71,8 @@ public class LoginActivity extends AppCompatActivity {
     private class LoginTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
-            String urlStr = "http://192.168.0.12:3000/user/login";
+            String urlStr = "http://164.8.223.94:3000/user/login";
+            //String urlStr = "http://192.168.0.12:3000/user/login";
 
             try {
                 URL url = new URL(urlStr);
