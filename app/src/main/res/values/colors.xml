@@ -13,4 +13,5 @@
     <color name="text_grey">#969696</color>
     <color name="enter_history_grey">#4a4a4a</color>
     <color name="save_button">#12cdd4</color>
+    <color name="colorPrimary">#000000</color>
 </resources>

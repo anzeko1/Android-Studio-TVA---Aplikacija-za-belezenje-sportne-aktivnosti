@@ -31,6 +31,10 @@
             android:configChanges="orientation|screenSize"
             android:exported="false" />
         <activity
+            android:name=".WeeklyHistoryActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+        <activity
             android:name=".ViewActivity"
             android:exported="false" />
         <activity
