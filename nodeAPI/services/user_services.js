@@ -28,17 +28,19 @@ const register = async (req,res) => {
 const login = async (req,res) => {
     const userName = req.body.userName;
     const password = req.body.password;
-
     try {
         const userLogin = await user.findOne({userName: userName, password: password});
 
         if(userLogin){
             res.send({"response": `Success: User with username: ${userName} logged in`})
+            console.log("success")
         } else{
             res.send({"response": `Error: User with username: ${userName} not found`})
+            console.log(`error: username ${userName}`)
         }
     } catch(err){
         res.send({"response": `Error: there was a error when logging in: ${err.message}`})
+        console.log("error" + err);
         }
 };
 

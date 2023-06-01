@@ -19,6 +19,7 @@ public class ActivityFormObject {
     public String activityLength;
 
     public String description;
+    public String activityRealmId;
     public String response;
 
     public Long getUid() {
@@ -69,6 +70,13 @@ public class ActivityFormObject {
     public void setDescription(String description) {
         this.description= description;
     }
+    public String getActivityId() {
+        return activityRealmId;
+    }
+
+    public void setActivityId(String activityRealmId) {
+        this.activityRealmId = activityRealmId;
+    }
     public String getResponse() {
         return response;
     }
@@ -76,7 +84,7 @@ public class ActivityFormObject {
         this.response = response;
     }
 
-    public ActivityFormObject(String idUser, String activityName, String activityType, String activityTypeRecord, Date activityDate, String activityLength, String description) {
+    public ActivityFormObject(String idUser, String activityName, String activityType, String activityTypeRecord, Date activityDate, String activityLength, String description, String activityRealmId) {
         this.idUser = idUser;
         this.activityName = activityName;
         this.activityType = activityType;
@@ -84,5 +92,6 @@ public class ActivityFormObject {
         this.activityDate = activityDate;
         this.activityLength = activityLength;
         this.description = description;
+        this.activityRealmId = activityRealmId;
     }
 }

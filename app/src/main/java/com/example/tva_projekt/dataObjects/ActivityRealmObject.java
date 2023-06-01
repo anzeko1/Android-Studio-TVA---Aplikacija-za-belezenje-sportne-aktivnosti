@@ -7,6 +7,7 @@ import io.realm.annotations.RealmClass;
 public class ActivityRealmObject extends RealmObject {
     @PrimaryKey
     long id;
+    public String activityRealmId;
     public String activityName;
     public String activityType;
     public String activityTypeRecord;
@@ -14,12 +15,19 @@ public class ActivityRealmObject extends RealmObject {
     public String activityLength;
     public String description;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+    public String getActivityId() {
+        return activityRealmId;
+    }
+
+    public void setActivityId(String activityRealmId) {
+        this.activityRealmId = activityRealmId;
     }
 
     public String getActivityName() {
