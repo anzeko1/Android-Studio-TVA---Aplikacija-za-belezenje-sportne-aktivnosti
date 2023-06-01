@@ -112,4 +112,8 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
             historyModels.add(new HistoryModel(activityNames[]));
         }
     }*/
+    public void weeklyHistoryActivity(View view) {
+        Intent intent = new Intent(HistoryActivity.this, WeeklyHistoryActivity.class);
+        startActivity(intent);
+    }
 }
