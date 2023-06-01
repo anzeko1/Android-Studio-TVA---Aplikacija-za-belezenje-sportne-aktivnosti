@@ -9,10 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.tva_projekt.common.HistoryAdapter;
 import com.example.tva_projekt.common.OnRecyclerViewCallback;
 import com.example.tva_projekt.common.TVAapplication;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.text.ParseException;
@@ -27,6 +33,8 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
     TVAapplication app;
     private HistoryAdapter adapter;
 
+    RequestQueue requestQueue = Volley.newRequestQueue(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +43,15 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
         adapter = new HistoryAdapter(this, historyModels);
 
         //TODO: Get data from database
+        getAllActivities();
 
+        /*
         historyModels = new ArrayList<>();
         historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", 12.5, R.drawable.running));
         historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 15.2, R.drawable.cycling));
         historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27",10.5, R.drawable.walking));
         historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", 5.5, R.drawable.running));
+        */
 
 
         adapter.setData(historyModels);
@@ -48,6 +59,41 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
         RecyclerView rw = findViewById(R.id.recyclerView);
         rw.setLayoutManager(new LinearLayoutManager(this));
         rw.setAdapter(adapter);
+    }
+
+    // Method for getting all activities from database
+    private void getAllActivities() {
+        String URL = "http://localhost:3000/getAllActivities";
+        try {
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, response -> {
+                // Process the response
+                List<HistoryModel> historyModels = new ArrayList<>();
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject jsonObject = response.getJSONObject(i);
+                        // Parse the JSON object and create HistoryModel instances
+                        String activityName = jsonObject.getString("activityName");
+                        String activityDuration = jsonObject.getString("activityDuration");
+                        String activityDate = jsonObject.getString("activityDate");
+                        double activityDistance = jsonObject.getDouble("activityDistance");
+                        int drawableId = jsonObject.getInt("drawableId");
+
+                        // Create a new HistoryModel instance
+                        HistoryModel historyModel = new HistoryModel(activityName, activityDuration, activityDate, activityDistance, drawableId);
+                        historyModels.add(historyModel);
+                    }
+
+                    // Update your UI with the fetched history models
+                    adapter.setData(historyModels);
+
+                } catch (JSONException e) {
+                    Log.e("Response", "onResponse: JSON parsing error", e);
+                }
+            }, error -> Log.e("Response", "onErrorResponse: " + error.getMessage()));
+            requestQueue.add(request);
+        } catch (Exception e) {
+            Log.e("Response", "Error making GET request", e);
+        }
     }
 
     @Override
