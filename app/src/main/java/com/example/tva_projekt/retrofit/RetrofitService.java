@@ -22,4 +22,7 @@ public interface RetrofitService {
     //Call<List<GetPredefinedActivitiesResult>> getPredefinedActivities(@Path("type") String type);
     @GET("predefinedActivity/getActivity/{type}")
     Call<List<GetPredefinedActivitiesResult>> getPredefinedActivities(@Path("type") String type);
+
+    @POST("user/login")
+    Call<LoginDataObject> getUserId(@Body LoginDataObject loginDataObject);
 }

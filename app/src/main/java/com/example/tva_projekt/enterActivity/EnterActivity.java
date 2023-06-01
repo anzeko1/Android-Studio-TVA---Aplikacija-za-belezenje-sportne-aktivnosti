@@ -1,17 +1,23 @@
 package com.example.tva_projekt.enterActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tva_projekt.R;
+import com.example.tva_projekt.checkConnection.NetworkUtil;
 import com.example.tva_projekt.dataObjects.ActivityFormObject;
 import com.example.tva_projekt.dataObjects.ActivityRealmObject;
 import com.example.tva_projekt.retrofit.ApiClient;
@@ -23,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -35,12 +42,19 @@ public class EnterActivity extends AppCompatActivity {
     EditText activityType = null;
     EditText activityLength = null;
     EditText description = null;
+    private Button enterHistory;
     Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_activity);
+        enterHistory = findViewById(R.id.seeEnteredActivities);
+        if(isLoggedIn()){
+            enterHistory.setVisibility(View.GONE);
+        } else {
+            enterHistory.setVisibility(View.VISIBLE);
+        }
         AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.select_activities);
         String[] activities = getResources().getStringArray(R.array.activities_array);
         ArrayAdapter<String> adapter =
@@ -77,7 +91,7 @@ public class EnterActivity extends AppCompatActivity {
                     activityLength.setText(Integer.toString(length));
                     description.setText(descriptionActivity);
                     Toast.makeText(getApplicationContext(),"You seccessfully got the activity",Toast.LENGTH_SHORT).show();
-                    System.out.println(descriptionActivity + "-----");// + Sao2 + "-----" + telesnaTmeperatura);
+                    //System.out.println(descriptionActivity + "-----");// + Sao2 + "-----" + telesnaTmeperatura);
                 }
 
                 @Override
@@ -102,24 +116,33 @@ public class EnterActivity extends AppCompatActivity {
         String stringActivityLength = activityLength.getText().toString();
         String stringDescription = description.getText().toString();
 
+
         //pridobivanje trenutnega časa
         Date date = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String formatedDate = dateFormat.format(date);
         String activityTypeRecord = "manualRecord";
-        String idUser = "test";
+        String activityId = uuid();
+        String idUser;
+        if(isLoggedIn()) {
+            idUser = getUserId();
+        } else {
+            idUser = "";
+        }
+        System.out.println("THIS IS USER ID" + getUserId());
+        String status = NetworkUtil.getConnectivityStatusString(this);
+        if(!isLoggedIn() || status.equals("No internet is available")){
+            insertIntoRealmDatabase(idUser, stringActivityName, stringActivityType, activityTypeRecord, formatedDate, stringActivityLength, stringDescription, activityId);
+        } else {
+            retrofitRequest(idUser, stringActivityName, stringActivityType, activityTypeRecord, date, stringActivityLength, stringDescription, activityId);
+        }
 
-        //Vnos podatkov v realm lokalno bazo
-        insertIntoRealmDatabase(idUser, stringActivityName, stringActivityType, activityTypeRecord, formatedDate, stringActivityLength, stringDescription);
-
-        //vnos podatkov v funkcijo
-        retrofitRequest(idUser, stringActivityName, stringActivityType, activityTypeRecord, date, stringActivityLength, stringDescription);
         activityName.getText().clear();
         activityType.getText().clear();
         activityLength.getText().clear();
         description.getText().clear();
     }
-    public void retrofitRequest(String idUser, String activityName, String activityType, String activityTypeRecord, Date activityDate, String activityLength, String description) {
+    public void retrofitRequest(String idUser, String activityName, String activityType, String activityTypeRecord, Date activityDate, String activityLength, String description, String activityRealmId) {
         ActivityFormObject activityFormObject = new ActivityFormObject(
                 idUser,
                 activityName,
@@ -127,7 +150,8 @@ public class EnterActivity extends AppCompatActivity {
                 activityTypeRecord,
                 activityDate,
                 activityLength,
-                description
+                description,
+                activityRealmId
         );
         //tukaj spodaj vse convertira objekt v json obliko da se lahko pošlje
         RetrofitService retrofitService = ApiClient.getRetrofit().create(RetrofitService.class);
@@ -162,16 +186,20 @@ public class EnterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void insertIntoRealmDatabase(String idUser, String activityName, String activityType, String activityTypeRecord, String activityDate, String activityLength, String description) {
+    public void insertIntoRealmDatabase(String idUser, String activityName, String activityType, String activityTypeRecord, String activityDate, String activityLength, String description, String uuid) {
+
         final ActivityRealmObject activityRealmObject = new ActivityRealmObject();
-        Number currentId=realm.where(ActivityRealmObject.class).max("id");
+        Number currentId = realm.where(ActivityRealmObject.class).max("id");
         long nextId;
-        if(currentId == null) {
-            nextId = 1;
-        } else {
-            nextId = currentId.intValue()+1;
+        if(currentId==null){
+            nextId=1;
         }
+        else{
+            nextId=currentId.intValue()+1;
+        }
+
         activityRealmObject.setId(nextId);
+        activityRealmObject.setActivityId(uuid);
         activityRealmObject.setActivityName(activityName);
         activityRealmObject.setActivityType(activityType);
         activityRealmObject.setActivityTypeRecord(activityTypeRecord);
@@ -185,5 +213,38 @@ public class EnterActivity extends AppCompatActivity {
                 realm.copyToRealm(activityRealmObject);
             }
         });
+
+
+    }
+    public String uuid(){
+        final String uuid = UUID.randomUUID().toString().replace("-", "");
+        //System.out.println("UUID: " + uuid);
+        return uuid;
+    }
+    public static String getConnectivityStatusString(Context context) {
+        String status = null;
+        ConnectivityManager cm = (ConnectivityManager)           context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                status = "Wifi enabled";
+                return status;
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                status = "Mobile data enabled";
+                return status;
+            }
+        } else {
+            status = "No internet is available";
+            return status;
+        }
+        return status;
+    }
+    private boolean isLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        return sharedPreferences.getBoolean("isLoggedIn", false);
+    }
+    private String getUserId() {
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
+        return sharedPreferences.getString("idUser", "");
     }
 }

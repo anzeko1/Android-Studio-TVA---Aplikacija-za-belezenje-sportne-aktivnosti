@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const activitySchema = new Schema({
     idUser: {
         type: String,
+        required: true
     },
     activityName: {
         type: String,
@@ -23,7 +24,7 @@ const activitySchema = new Schema({
         type: String,
     },
     activityDistance: {
-        type: String,
+        type: Number,
     },
     coordinates: [
         {

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.osmdroid.config.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.tva_projekt.common.TVAapplication;
+import com.example.tva_projekt.dataObjects.MyGeoPoint;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.util.GeoPoint;
@@ -32,28 +34,32 @@ public class ViewActivity extends AppCompatActivity {
         Configuration.getInstance().load(getApplicationContext(), getSharedPreferences("OpenStreetMap", MODE_PRIVATE));
         setContentView(R.layout.view_activity);
 
-        app = (TVAapplication)getApplication();
+        app = (TVAapplication) getApplication();
 
         mapView = findViewById(R.id.mapView);
         mapView.setTileSource(org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK);
         mapController = mapView.getController();
-        mapController.setZoom(15.0);
-        mapController.setCenter(app.selectedItem.PATH_COORDINATES[0]);
+
+        if (app.selectedItem.PATH_COORDINATES.length > 0) {
+            drawPath();
+
+            mapController.setZoom(15.0);
+            mapController.setCenter(new GeoPoint(app.selectedItem.PATH_COORDINATES[0].lat, app.selectedItem.PATH_COORDINATES[0].lng));
+        }
+
         activityName = findViewById(R.id.textName);
         activityDuration = findViewById(R.id.textDuration);
         activityDate = findViewById(R.id.textDate);
         activityDistance = findViewById(R.id.textDistance);
 
-
-
-
         activityName.setText(app.selectedItem.getActivityName());
         activityDuration.setText(app.selectedItem.getActivityDuration());
         activityDate.setText(app.selectedItem.getActivityDate());
         activityDistance.setText(app.selectedItem.getActivityDistance().toString());
+    }
 
-
-        drawPath();
+    public void closeEnterActivity(View view) {
+        finish();
     }
 
     private void drawPath() {
@@ -63,8 +69,8 @@ public class ViewActivity extends AppCompatActivity {
 
 
 
-        for (GeoPoint point : app.selectedItem.PATH_COORDINATES) {
-            path.addPoint(point);
+        for (MyGeoPoint point : app.selectedItem.PATH_COORDINATES) {
+            path.addPoint(new GeoPoint(point.lat, point.lng));
         }
 
         mapView.getOverlayManager().add(path);

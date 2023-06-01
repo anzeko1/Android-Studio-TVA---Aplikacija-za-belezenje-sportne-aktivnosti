@@ -6,6 +6,7 @@ const insertActivity = async (req,res) => {
 
 //ta funkcija pa se uporabi za vnos aktivnosti iz forme
 const insertActivityFrom = async (req, res) => {
+    const idUser = req.body.idUser;
     const activityName = req.body.activityName;
     const activityType = req.body.activityType;
     const activityTypeRecord = req.body.activityTypeRecord;
@@ -14,6 +15,7 @@ const insertActivityFrom = async (req, res) => {
     const description = req.body.description;
 
     const newActivity = new activity({
+        idUser: idUser,
         activityName: activityName,
         activityType: activityType,
         activityTypeRecord: activityTypeRecord,
@@ -31,10 +33,12 @@ const insertActivityFrom = async (req, res) => {
     })
 }
 
-// GET ALL ACTIVITIES
+// GET ALL ACTIVITIES FOR A USER
 const getAllActivities = async (req, res) => {
+  const { UserID } = req.params; // Assuming the UserID is passed as a parameter
+
   try {
-    const activities = await activity.find();
+    const activities = await activity.find({ idUser: UserID }); // Filter activities by UserID
     res.json(activities);
   } catch (err) {
     console.error(err);

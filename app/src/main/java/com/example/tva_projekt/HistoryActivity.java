@@ -9,15 +9,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.example.tva_projekt.common.Helper;
 import com.example.tva_projekt.common.HistoryAdapter;
 import com.example.tva_projekt.common.OnRecyclerViewCallback;
 import com.example.tva_projekt.common.TVAapplication;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.osmdroid.util.GeoPoint;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -26,21 +34,25 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
     List<HistoryModel> historyModels = new ArrayList<>();
     TVAapplication app;
     private HistoryAdapter adapter;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_activity);
         app = (TVAapplication)getApplication();
+        requestQueue = Volley.newRequestQueue(this);
         adapter = new HistoryAdapter(this, historyModels);
 
-        //TODO: Get data from database
+        getAllActivities();
 
+        /*
         historyModels = new ArrayList<>();
         historyModels.add(new HistoryModel("Running", "00:30:00", "2023-05-24", 12.5, R.drawable.running));
         historyModels.add(new HistoryModel("Cycling", "00:45:00", "2023-05-22", 15.2, R.drawable.cycling));
         historyModels.add(new HistoryModel("Walking", "00:15:00", "2023-04-27",10.5, R.drawable.walking));
         historyModels.add(new HistoryModel("Running", "00:30:00", "2023-04-27", 5.5, R.drawable.running));
+        */
 
 
         adapter.setData(historyModels);
@@ -48,6 +60,28 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
         RecyclerView rw = findViewById(R.id.recyclerView);
         rw.setLayoutManager(new LinearLayoutManager(this));
         rw.setAdapter(adapter);
+    }
+
+    // Method for getting all activities from database
+    private void getAllActivities() {
+        try {
+            String URL = "http://192.168.1.14:3000/activity/getAllActivities/" + app.user.getIdUser();
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, response -> {
+                // parsanje responsa json string v listo HistoryModel
+                historyModels = Arrays.asList(Helper.parseJson(response.toString(), HistoryModel[].class));
+
+                // activitys se posodobijo v adapter
+                adapter.setData(historyModels);
+
+            }, error -> Log.e("Response", "onErrorResponse: " + error.getMessage()));
+            requestQueue.add(request);
+        } catch (Exception e) {
+            Log.e("Response", "Error making GET request", e);
+        }
+    }
+
+    public void closeEnterActivity(View view) {
+        finish();
     }
 
     @Override

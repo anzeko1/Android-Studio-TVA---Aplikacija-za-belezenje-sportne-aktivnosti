@@ -1,14 +1,13 @@
 package com.example.tva_projekt;
 
-import android.content.SharedPreferences;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -128,5 +127,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             Log.d("Shared Preferences", "Username: " + username);
         }
+    }
+    public void goToMainActivity(View view) {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }

@@ -6,7 +6,7 @@ const {insertActivity, insertActivityFrom, getAllActivities, createActivity} = r
 router.post("/insertActivity", insertActivity);
 router.post("/insertActivityFrom", insertActivityFrom)
 
-router.get("/getAllActivities", getAllActivities);
+router.get("/getAllActivities/:UserID", getAllActivities);
 router.post("/createActivity", createActivity);
 
 module.exports = router;

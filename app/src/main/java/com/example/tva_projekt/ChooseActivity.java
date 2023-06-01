@@ -29,4 +29,8 @@ public class ChooseActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
+    public void closeEnterActivity(View view) {
+        finish();
+    }
 }
