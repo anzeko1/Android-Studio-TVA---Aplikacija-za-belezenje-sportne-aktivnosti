@@ -23,7 +23,7 @@ const activitySchema = new Schema({
         type: String,
     },
     activityDistance: {
-        type: String,
+        type: Number,
     },
     coordinates: [
         {

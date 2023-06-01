@@ -119,8 +119,9 @@ public class LoginActivity extends AppCompatActivity {
     private class LoginTask extends AsyncTask<String, Void, Boolean> {
         @Override
         protected Boolean doInBackground(String... params) {
-            String urlStr = "http://164.8.223.94:3000/user/login";
+            //String urlStr = "http://164.8.223.94:3000/user/login";
             //String urlStr = "http://192.168.0.12:3000/user/login";
+            String urlStr = "http://192.168.1.14:3000/user/login";
 
             try {
                 URL url = new URL(urlStr);
