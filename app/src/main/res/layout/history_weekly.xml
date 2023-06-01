@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mRecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="match_parent"
     tools:context=".HistoryActivity">
 
     <FrameLayout
         android:id="@+id/enter_activity_main"
-        android:layout_width="500px"
-        android:layout_height="130px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="30px"
         android:layout_marginTop="30px"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
             android:layout_height="130px"
             android:layout_gravity="fill"
             android:background="#0000"
-            android:onClick="closeEnterActivity"
+            android:onClick="historyActivity"
             android:text="@string/go_back"
             android:textAllCaps="false"
             android:textColor="@color/black"
@@ -37,80 +37,18 @@
             android:layout_height="120px"
             android:background="#0000"
             android:contentDescription="@string/enter_activity"
-            android:onClick="closeEnterActivity"
+            android:onClick="historyActivity"
             android:src="@drawable/go_back" />
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="260dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/weekly_history"
-        android:textColor="@color/black"
-        android:textFontWeight="900"
-        android:textSize="80px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="409dp"
-        android:layout_height="320dp"
-        android:paddingHorizontal="10dp"
-        tools:listitem="@layout/recycler_view_row_history"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="460dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/duration"
-        android:textColor="@color/text_grey"
-        android:textFontWeight="900"
-        android:textSize="40px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="460dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/total_distance"
-        android:textColor="@color/text_grey"
-        android:textFontWeight="900"
-        android:textSize="40px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textDaysActive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="460dp"
-        android:fontFamily="@font/open_sans"
-        android:text="@string/days_active"
-        android:textColor="@color/text_grey"
-        android:textFontWeight="900"
-        android:textSize="40px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <lecho.lib.hellocharts.view.LineChartView
-        android:id="@+id/lineChartView"
+        android:id="@+id/stepsChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
