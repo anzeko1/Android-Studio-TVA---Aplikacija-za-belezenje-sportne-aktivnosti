@@ -1,5 +1,8 @@
 package com.example.tva_projekt.dataObjects;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import org.osmdroid.util.GeoPoint;
 
 import java.time.LocalDate;
@@ -9,7 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 public class ActivityObject {
-    private String idUser;
+
+    @SerializedName("idUser")
+    @Expose
+    public String idUser;
     private String activityName;
     private String activityType;
     private String activityTypeRecord;

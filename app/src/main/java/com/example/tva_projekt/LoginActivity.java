@@ -74,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("idUser", responseIdUser);
                         editor.apply();
 
+                        app.user.setIdUser(responseIdUser);
+
                         Toast.makeText(LoginActivity.this, "You logged in as: " + username, Toast.LENGTH_SHORT).show();
                         Log.d("Pretty Printed JSON :", "idUser: " + responseIdUser);
 

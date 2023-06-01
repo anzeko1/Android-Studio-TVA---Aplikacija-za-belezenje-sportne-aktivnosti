@@ -33,10 +33,12 @@ const insertActivityFrom = async (req, res) => {
     })
 }
 
-// GET ALL ACTIVITIES
+// GET ALL ACTIVITIES FOR A USER
 const getAllActivities = async (req, res) => {
+  const { UserID } = req.params; // Assuming the UserID is passed as a parameter
+
   try {
-    const activities = await activity.find();
+    const activities = await activity.find({ idUser: UserID }); // Filter activities by UserID
     res.json(activities);
   } catch (err) {
     console.error(err);
