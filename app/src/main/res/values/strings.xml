@@ -149,6 +149,8 @@
     <string name="weekly_history">Weekly history</string>
     <string name="dob">Birth year</string>
     <string name="log_out">Log Out</string>
+    <string name="notLoggedIn">Login if you want to choose a activity</string>
+    <string name="notRegistered">Can not login! Register Here</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <!--
