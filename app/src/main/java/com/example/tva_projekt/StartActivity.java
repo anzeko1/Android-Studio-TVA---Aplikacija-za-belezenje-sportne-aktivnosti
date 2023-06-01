@@ -191,7 +191,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         elapsedTime = 0L;
         activityObject.activityDuration = elapsedTime;
         activityObject.steps = stepCount;
-        String URL = "http://localhost:3000/insertActivity";
+        String URL = "http://localhost:3000/createActivity";
         try {
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(new Gson().toJson(activityObject)), response -> {
                 Log.e("Response", "onResponse: " + response.toString());

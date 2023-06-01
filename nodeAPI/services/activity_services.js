@@ -30,4 +30,28 @@ const insertActivityFrom = async (req, res) => {
         res.send({"response": `Error: there was a error when inserting activity: ${err}`})
     })
 }
-module.exports = {insertActivity, insertActivityFrom}
+
+// GET ALL ACTIVITIES
+const getAllActivities = async (req, res) => {
+  try {
+    const activities = await activity.find();
+    res.json(activities);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+// POST ACTIVITY
+const createActivity = async (req, res) => {
+  try {
+    const newActivity = new activity(req.body);
+    const savedActivity = await newActivity.save();
+    res.json(savedActivity);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+module.exports = {insertActivity, insertActivityFrom, getAllActivities, createActivity}
