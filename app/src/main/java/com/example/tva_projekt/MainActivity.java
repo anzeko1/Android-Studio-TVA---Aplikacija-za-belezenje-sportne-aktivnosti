@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private Button loginPageButton;
     private Button registerPageButton;
     private Button logoutButton;
+    private FrameLayout history_activity;
+    private FrameLayout choose_activity;
+    private Button notLoggedIn;
     private BroadcastReceiver MyReceiver;
 
     @Override
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         loginPageButton = findViewById(R.id.loginPage);
         registerPageButton = findViewById(R.id.registerPage);
         logoutButton = findViewById(R.id.logoutButton);
+        choose_activity = findViewById(R.id.choose_activity);
+        history_activity = findViewById(R.id.history_activity);
+        notLoggedIn = findViewById(R.id.notLoggedIn);
 
         updateUI();
 
@@ -54,12 +61,20 @@ public class MainActivity extends AppCompatActivity {
             loginPageButton.setVisibility(View.GONE);
             registerPageButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.VISIBLE);
+
+            choose_activity.setVisibility(View.VISIBLE);
+            history_activity.setVisibility(View.VISIBLE);
+            notLoggedIn.setVisibility(View.GONE);
             logoutButton.setText(getString(R.string.log_out) + " (" + username + ")");
         } else {
             // User is not logged in, show login and register buttons
             loginPageButton.setVisibility(View.VISIBLE);
             registerPageButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.GONE);
+
+            choose_activity.setVisibility(View.GONE);
+            history_activity.setVisibility(View.GONE);
+            notLoggedIn.setVisibility(View.VISIBLE);
         }
     }
     //ob kliku na Enter Activity preusmeri na aktivnost Enter Activity

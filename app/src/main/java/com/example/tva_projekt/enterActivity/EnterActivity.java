@@ -125,10 +125,11 @@ public class EnterActivity extends AppCompatActivity {
         String activityId = uuid();
         String idUser;
         if(isLoggedIn()) {
-            idUser = getUsername();
+            idUser = getUserId();
         } else {
             idUser = "";
         }
+        System.out.println("THIS IS USER ID" + getUserId());
         String status = NetworkUtil.getConnectivityStatusString(this);
         if(!isLoggedIn() || status.equals("No internet is available")){
             insertIntoRealmDatabase(idUser, stringActivityName, stringActivityType, activityTypeRecord, formatedDate, stringActivityLength, stringDescription, activityId);
@@ -242,8 +243,8 @@ public class EnterActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
         return sharedPreferences.getBoolean("isLoggedIn", false);
     }
-    private String getUsername() {
+    private String getUserId() {
         SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
-        return sharedPreferences.getString("username", "");
+        return sharedPreferences.getString("idUser", "");
     }
 }

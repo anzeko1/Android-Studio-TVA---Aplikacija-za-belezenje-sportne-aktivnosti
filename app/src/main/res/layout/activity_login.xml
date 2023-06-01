@@ -33,7 +33,7 @@
                 android:textColor="@color/black"
                 android:textSize="45px"
                 app:backgroundTint="@color/white"
-                android:onClick="closeEnterActivity"/>
+                android:onClick="closeLoginActivity"/>
 
             <ImageButton
                 android:id="@+id/go_back"
@@ -125,6 +125,19 @@
             android:textSize="60px"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/cantLogin"
+            android:layout_width="340dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="520dp"
+            android:backgroundTint="@color/save_button"
+            android:text="@string/notRegistered"
+            android:textAllCaps="false"
+            android:textSize="60px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="registerActivity"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

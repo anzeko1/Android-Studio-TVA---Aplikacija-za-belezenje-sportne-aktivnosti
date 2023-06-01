@@ -32,11 +32,11 @@ const login = async (req,res) => {
         const userLogin = await user.findOne({userName: userName, password: password});
 
         if(userLogin){
-            res.send({"response": `Success: User with username: ${userName} logged in`})
-            console.log("success")
+            res.send({"response": `Success: User with username: ${userName} logged in`, "idUser": userLogin._id})
+            console.log(`Success: UserId: ${userLogin._id}`);
         } else{
             res.send({"response": `Error: User with username: ${userName} not found`})
-            console.log(`error: username ${userName}`)
+            console.log(`error: Wrong username or password`)
         }
     } catch(err){
         res.send({"response": `Error: there was a error when logging in: ${err.message}`})

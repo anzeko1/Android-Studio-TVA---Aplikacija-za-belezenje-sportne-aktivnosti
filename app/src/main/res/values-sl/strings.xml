@@ -45,4 +45,6 @@
     <string name="weekly_history">Tedenska zgodovina</string>
     <string name="dob">Leto rojstva</string>
     <string name="log_out">Odjava</string>
+    <string name="notLoggedIn">Prijavite se če želite začeti aktivnost</string>
+    <string name="notRegistered">Se ne morete prijaviti! Registrirajte se tukaj</string>
 </resources>

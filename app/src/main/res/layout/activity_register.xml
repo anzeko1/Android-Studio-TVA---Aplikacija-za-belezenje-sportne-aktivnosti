@@ -33,7 +33,7 @@
                 android:textColor="@color/black"
                 android:textSize="45px"
                 app:backgroundTint="@color/white"
-                android:onClick="closeEnterActivity"/>
+                android:onClick="goToMainActivity"/>
 
             <ImageButton
                 android:id="@+id/go_back"
@@ -42,7 +42,7 @@
                 android:background="#0000"
                 android:contentDescription="@string/enter_activity"
                 android:src="@drawable/go_back"
-                android:onClick="closeEnterActivity"/>
+                android:onClick="goToMainActivity"/>
         </FrameLayout>
 
         <TextView
