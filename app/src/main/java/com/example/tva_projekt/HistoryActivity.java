@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.tva_projekt.common.Helper;
 import com.example.tva_projekt.common.HistoryAdapter;
 import com.example.tva_projekt.common.OnRecyclerViewCallback;
 import com.example.tva_projekt.common.TVAapplication;
@@ -24,6 +25,7 @@ import org.osmdroid.util.GeoPoint;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,17 +34,16 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
     List<HistoryModel> historyModels = new ArrayList<>();
     TVAapplication app;
     private HistoryAdapter adapter;
-
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_activity);
         app = (TVAapplication)getApplication();
+        requestQueue = Volley.newRequestQueue(this);
         adapter = new HistoryAdapter(this, historyModels);
 
-        //TODO: Get data from database
         getAllActivities();
 
         /*
@@ -63,37 +64,24 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
 
     // Method for getting all activities from database
     private void getAllActivities() {
-        String URL = "http://localhost:3000/getAllActivities";
         try {
+            String URL = "http://192.168.1.14:3000/activity/getAllActivities";
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, response -> {
-                // Process the response
-                List<HistoryModel> historyModels = new ArrayList<>();
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        // Parse the JSON object and create HistoryModel instances
-                        String activityName = jsonObject.getString("activityName");
-                        String activityDuration = jsonObject.getString("activityDuration");
-                        String activityDate = jsonObject.getString("activityDate");
-                        double activityDistance = jsonObject.getDouble("activityDistance");
-                        int drawableId = jsonObject.getInt("drawableId");
+                // parsanje responsa json string v listo HistoryModel
+                historyModels = Arrays.asList(Helper.parseJson(response.toString(), HistoryModel[].class));
 
-                        // Create a new HistoryModel instance
-                        HistoryModel historyModel = new HistoryModel(activityName, activityDuration, activityDate, activityDistance, drawableId);
-                        historyModels.add(historyModel);
-                    }
+                // activitys se posodobijo v adapter
+                adapter.setData(historyModels);
 
-                    // Update your UI with the fetched history models
-                    adapter.setData(historyModels);
-
-                } catch (JSONException e) {
-                    Log.e("Response", "onResponse: JSON parsing error", e);
-                }
             }, error -> Log.e("Response", "onErrorResponse: " + error.getMessage()));
             requestQueue.add(request);
         } catch (Exception e) {
             Log.e("Response", "Error making GET request", e);
         }
+    }
+
+    public void closeEnterActivity(View view) {
+        finish();
     }
 
     @Override

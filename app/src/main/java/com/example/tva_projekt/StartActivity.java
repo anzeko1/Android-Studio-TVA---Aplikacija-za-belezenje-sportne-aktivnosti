@@ -22,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.tva_projekt.common.TVAapplication;
 import com.example.tva_projekt.dataObjects.ActivityObject;
+import com.example.tva_projekt.dataObjects.MyGeoPoint;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,12 +39,15 @@ import org.osmdroid.views.overlay.Marker;
 import android.Manifest;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class StartActivity extends AppCompatActivity implements SensorEventListener {
 
-    RequestQueue requestQueue = Volley.newRequestQueue(this);
+    private RequestQueue requestQueue;
 
     TextView activityName;
     TextView activityDuration;
@@ -85,7 +89,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         setContentView(R.layout.start_activity);
 
         app = (TVAapplication)getApplication();
-
+        requestQueue = Volley.newRequestQueue(this);
 
         mapView = findViewById(R.id.mapView);
         mapView.setTileSource(org.osmdroid.tileprovider.tilesource.TileSourceFactory.MAPNIK);
@@ -109,7 +113,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
                         }
                         activityDistance.setText(String.format("%.2f", totalDistance) + " km");
                         lastLocation = location;
-                        activityObject.pathCoordinates.add(new GeoPoint(location.getLatitude(), location.getLongitude()));
+                        activityObject.coordinates.add(new MyGeoPoint(location.getLatitude(), location.getLongitude()));
                         mapController.setCenter(new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude()));
                         Marker startMarker = new Marker(mapView);
                         startMarker.setPosition(new GeoPoint(lastLocation.getLatitude(), lastLocation.getLongitude()));
@@ -142,6 +146,10 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
 
     }
 
+    public void closeEnterActivity(View view) {
+        finish();
+    }
+
     private void updateTimer() {
         long currentTime = System.currentTimeMillis();
         long totalTime = elapsedTime + (currentTime - startTime);
@@ -158,6 +166,9 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         }
         activityObject = new ActivityObject();
         activityObject.setActivityName(activityName.getText().toString());
+        activityObject.setActivityType(activityName.getText().toString());
+        activityObject.setIdUser(app.user.getIdUser());
+        activityObject.setActivityDate(new Date());
         // activityObject.setStartActivity(System.currentTimeMillis());
 
         activityObject.setIdUser(app.user.getIdUser());
@@ -186,17 +197,23 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
     public void stopActivity(android.view.View view) {
         locationManager.removeUpdates(locationListener);
         IsTimerRunning = false;
-        elapsedTime += System.currentTimeMillis() - startTime;
         handler.removeCallbacks(runnable);
-        elapsedTime = 0L;
+
+        elapsedTime += System.currentTimeMillis() - startTime;
+
         activityObject.activityDuration = elapsedTime;
         activityObject.steps = stepCount;
-        String URL = "http://localhost:3000/createActivity";
+
+        activityObject.activityDistance = totalDistance;
+
+        elapsedTime = 0L;
+
         try {
+            String URL = "http://192.168.1.14:3000/activity/createActivity";
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, new JSONObject(new Gson().toJson(activityObject)), response -> {
-                Log.e("Response", "onResponse: " + response.toString());
-                    Toast.makeText(StartActivity.this, "Activity saved", Toast.LENGTH_SHORT).show();
-            }, error -> Log.e("Response", "onErrorResponse: " + error.getMessage()));
+                Log.i("Volley-ok", "onResponse: " + response.toString());
+                Toast.makeText(StartActivity.this, "Activity saved", Toast.LENGTH_SHORT).show();
+            }, error -> Log.e("Volley-err", "onErrorResponse: " + error.getMessage()));
             requestQueue.add(request);
         } catch (JSONException e) {
             Log.e("Response", "onErrorResponse: " + e.getMessage());

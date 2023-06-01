@@ -24,7 +24,9 @@ public class ActivityObject {
 
     public long activityDuration;
 
-    public List<GeoPoint> pathCoordinates;
+    public List<MyGeoPoint> coordinates;
+
+    public Double activityDistance;
     private String response;
 
     public String getIdUser() {
@@ -114,6 +116,6 @@ public class ActivityObject {
     }
 
     public ActivityObject() {
-        this.pathCoordinates = new ArrayList<>();
+        this.coordinates = new ArrayList<>();
     }
 }
