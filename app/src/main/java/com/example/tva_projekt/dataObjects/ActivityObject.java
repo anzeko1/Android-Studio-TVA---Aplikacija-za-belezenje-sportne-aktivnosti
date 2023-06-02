@@ -27,12 +27,15 @@ public class ActivityObject {
     private Double lat;
     private String description;
     public int steps;
-
     public long activityDuration;
+
+    public List<GeoPoint> pathCoordinates;
+
 
     public List<MyGeoPoint> coordinates;
 
     public Double activityDistance;
+
     private String response;
 
     public String getIdUser() {
@@ -101,6 +104,12 @@ public class ActivityObject {
     public void setDescription(String description) {
         this.description= description;
     }
+
+    public int getSteps() { return steps; }
+    public void setSteps(int steps) { this.steps = steps; }
+
+    public long getActivityDuration() { return (int) activityDuration; }
+    public void setActivityDuration(long activityDuration) { this.activityDuration = activityDuration; }
     public String getResponse() {
         return response;
     }
@@ -108,7 +117,7 @@ public class ActivityObject {
         this.response = response;
     }
 
-    public ActivityObject(String idUser, String activityName, Date activityDate, String activityTypeRecord, String startActivity, String stopActivity, String activityLength, Double lon, Double lat, String description) {
+    public ActivityObject(String idUser, String activityName, Date activityDate, String activityTypeRecord, String startActivity, String stopActivity, String activityLength, Double lon, Double lat, String description, int steps) {
         this.idUser = idUser;
         this.activityName = activityName;
         this.activityDate = activityDate;
@@ -119,6 +128,7 @@ public class ActivityObject {
         this.lon = lon;
         this.lat = lat;
         this.description = description;
+        this.steps = steps;
     }
 
     public ActivityObject() {
