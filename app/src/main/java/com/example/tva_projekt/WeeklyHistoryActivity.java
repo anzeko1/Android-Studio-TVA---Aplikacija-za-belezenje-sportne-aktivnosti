@@ -11,9 +11,13 @@ import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.SharedPreferences;
@@ -115,14 +119,19 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
             return stepsPerDay;
         }
 
-        /*private boolean isLoggedIn() {
-            SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
-            return sharedPreferences.getBoolean("isLoggedIn", false);
-        }*/
+        private String getFormattedDate(int dayIndex) {
+            // Assuming the starting date is the 29th of May
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.MONTH, Calendar.MAY);
+            calendar.set(Calendar.DAY_OF_MONTH, 29);
 
-        public void goToHistoryActivity(View view) {
-            Intent intent = new Intent(WeeklyHistoryActivity.this, HistoryActivity.class);
-            startActivity(intent);
+            // Add the day index to the starting date
+            calendar.add(Calendar.DAY_OF_MONTH, dayIndex);
+
+            // Format the date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
+            Date date = calendar.getTime();
+            return dateFormat.format(date);
         }
 
         @Override
@@ -144,8 +153,15 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
             for (int i = 0; i < stepsPerDay.size(); i++) {
                 int steps = stepsPerDay.get(i);
                 pointValues.add(new PointValue(i, steps));
-                axisValues.add(new AxisValue(i).setLabel("Day " + (i + 1)));
+                axisValues.add(new AxisValue(i).setLabel(getFormattedDate(i)));
             }
+
+            // Set Y-axis range from 0 to 4000
+            Viewport viewport = new Viewport(stepsChart.getMaximumViewport());
+            viewport.bottom = 0;
+            viewport.top = 2000;
+            stepsChart.setMaximumViewport(viewport);
+            stepsChart.setCurrentViewport(viewport);
 
             Line line = new Line(pointValues).setColor(Color.BLUE).setCubic(true);
             List<Line> lines = new ArrayList<>();
@@ -165,7 +181,7 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
             stepsChart.setLineChartData(data);
 
             // Refresh the chart
-            stepsChart.invalidate();
+            //stepsChart.invalidate();
         }
     }
 }
