@@ -1,5 +1,6 @@
 package com.example.tva_projekt;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -10,9 +11,13 @@ import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.view.LineChartView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.SharedPreferences;
@@ -20,6 +25,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
+
+import com.example.tva_projekt.common.TVAapplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,10 +44,13 @@ import java.net.URL;
 public class WeeklyHistoryActivity extends AppCompatActivity {
     private LineChartView lineChartView;
 
+    TVAapplication app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.history_weekly);
+        app = (TVAapplication)getApplication();
 
         lineChartView = findViewById(R.id.stepsChart);
 
@@ -55,14 +66,14 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
         new /*WeeklyHistoryActivity.*/GetActivitiesData().execute();
     }
 
-    private class GetActivitiesData extends AsyncTask<String, Void, Pair<List<Integer>, List<Integer>>> {
+    private class GetActivitiesData extends AsyncTask<String, Void, List<Integer>> {
         @Override
-        protected Pair<List<Integer>, List<Integer>> doInBackground(String... params) {
+        protected List<Integer> doInBackground(String... params) {
             List<Integer> stepsPerDay = new ArrayList<>();
             List<Integer> kmPerDay = new ArrayList<>();
 
             try {
-                String urlStr = "http://164.8.161.231:3000/activity/getAllActivities";
+                String urlStr = "http://192.168.0.12:3000/activity/getAllActivities/" + app.user.getIdUser();
                 // Create a new connection for retrieving activities
                 URL activitiesUrl = new URL(urlStr);
                 HttpURLConnection activitiesConnection = (HttpURLConnection) activitiesUrl.openConnection();
@@ -105,55 +116,72 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
                 Log.d("GetActivitiesData", e.getMessage());
             }
 
-            return new Pair<>(stepsPerDay, kmPerDay);
+            return stepsPerDay;
         }
 
-        private boolean isLoggedIn() {
-            SharedPreferences sharedPreferences = getSharedPreferences("LoginPrefs", MODE_PRIVATE);
-            return sharedPreferences.getBoolean("isLoggedIn", false);
+        private String getFormattedDate(int dayIndex) {
+            // Assuming the starting date is the 29th of May
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.MONTH, Calendar.MAY);
+            calendar.set(Calendar.DAY_OF_MONTH, 29);
+
+            // Add the day index to the starting date
+            calendar.add(Calendar.DAY_OF_MONTH, dayIndex);
+
+            // Format the date
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd");
+            Date date = calendar.getTime();
+            return dateFormat.format(date);
         }
 
         @Override
-        protected void onPostExecute(Pair<List<Integer>, List<Integer>> result) {
-            if (isLoggedIn()) {
-                List<Integer> stepsPerDay = result.first;
-                List<Integer> kmPerDay = result.second;
+        protected void onPostExecute(List<Integer> stepsPerDay) {
+            super.onPostExecute(stepsPerDay);
 
-                // Find the LineChartView and TextView in your activity layout
-                LineChartView stepsChart = findViewById(R.id.stepsChart);
-
-                //LineChartView kmChart = findViewById(R.id.kmChart);
-
-                // Prepare data for the chart
-                List<PointValue> pointValues = new ArrayList<>();
-                List<AxisValue> axisValues = new ArrayList<>();
-
-                for (int i = 0; i < stepsPerDay.size(); i++) {
-                    int steps = stepsPerDay.get(i);
-                    pointValues.add(new PointValue(i, steps));
-                    axisValues.add(new AxisValue(i).setLabel("Day " + (i + 1)));
-                }
-
-                Line line = new Line(pointValues).setColor(Color.BLUE).setCubic(true);
-                List<Line> lines = new ArrayList<>();
-                lines.add(line);
-
-                LineChartData data = new LineChartData();
-                data.setLines(lines);
-
-                // Customize the axis labels
-                Axis axisX = new Axis(axisValues).setHasLines(true).setTextColor(Color.BLACK);
-                Axis axisY = new Axis().setHasLines(true).setTextColor(Color.BLACK);
-
-                data.setAxisXBottom(axisX);
-                data.setAxisYLeft(axisY);
-
-                // Set the chart data and update the title
-                stepsChart.setLineChartData(data);
-
-                // Refresh the chart
-                stepsChart.invalidate();
+            // Print the collected steps data
+            for (int steps : stepsPerDay) {
+                System.out.println(steps);
             }
+
+            // Find the LineChartView and TextView in your activity layout
+            LineChartView stepsChart = findViewById(R.id.stepsChart);
+
+            // Prepare data for the chart
+            List<PointValue> pointValues = new ArrayList<>();
+            List<AxisValue> axisValues = new ArrayList<>();
+
+            for (int i = 0; i < stepsPerDay.size(); i++) {
+                int steps = stepsPerDay.get(i);
+                pointValues.add(new PointValue(i, steps));
+                axisValues.add(new AxisValue(i).setLabel(getFormattedDate(i)));
+            }
+
+            // Set Y-axis range from 0 to 4000
+            Viewport viewport = new Viewport(stepsChart.getMaximumViewport());
+            viewport.bottom = 0;
+            viewport.top = 2000;
+            stepsChart.setMaximumViewport(viewport);
+            stepsChart.setCurrentViewport(viewport);
+
+            Line line = new Line(pointValues).setColor(Color.BLUE).setCubic(true);
+            List<Line> lines = new ArrayList<>();
+            lines.add(line);
+
+            LineChartData data = new LineChartData();
+            data.setLines(lines);
+
+            // Customize the axis labels
+            Axis axisX = new Axis(axisValues).setHasLines(true).setTextColor(Color.BLACK);
+            Axis axisY = new Axis().setHasLines(true).setTextColor(Color.BLACK);
+
+            data.setAxisXBottom(axisX);
+            data.setAxisYLeft(axisY);
+
+            // Set the chart data and update the title
+            stepsChart.setLineChartData(data);
+
+            // Refresh the chart
+            //stepsChart.invalidate();
         }
     }
 }

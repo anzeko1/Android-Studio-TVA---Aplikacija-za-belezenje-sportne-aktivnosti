@@ -24,7 +24,7 @@
             android:layout_height="130px"
             android:layout_gravity="fill"
             android:background="#0000"
-            android:onClick="historyActivity"
+            android:onClick="closeEnterActivity"
             android:text="@string/go_back"
             android:textAllCaps="false"
             android:textColor="@color/black"
@@ -36,16 +36,19 @@
             android:layout_width="40px"
             android:layout_height="120px"
             android:background="#0000"
-            android:contentDescription="@string/enter_activity"
-            android:onClick="historyActivity"
+            android:contentDescription="@string/history_activity"
+            android:onClick="closeEnterActivity"
             android:src="@drawable/go_back" />
     </FrameLayout>
 
 
-    <lecho.lib.hellocharts.view.ColumnChartView
+    <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/stepsChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
