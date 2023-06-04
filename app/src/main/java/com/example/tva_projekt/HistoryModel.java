@@ -1,6 +1,6 @@
 package com.example.tva_projekt;
 
-//import com.example.tva_projekt.dataObjects.MyGeoPoint;
+import com.example.tva_projekt.dataObjects.MyGeoPoint;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

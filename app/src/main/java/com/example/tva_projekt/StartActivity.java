@@ -209,7 +209,7 @@ public class StartActivity extends AppCompatActivity implements SensorEventListe
         elapsedTime = 0L;
 
         try {
-            String URL = "http://10.0.0.1:3000/activity/createActivity";
+            String URL = "http://192.168.1.14:3000/activity/createActivity";
             var body = new JSONObject(new Gson().toJson(activityObject));
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL, body, response -> {
                 Log.i("Volley-ok", "onResponse: " + response.toString());
