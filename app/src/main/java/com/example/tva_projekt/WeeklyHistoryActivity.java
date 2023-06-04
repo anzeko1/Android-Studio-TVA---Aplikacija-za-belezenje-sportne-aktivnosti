@@ -62,7 +62,7 @@ public class WeeklyHistoryActivity extends AppCompatActivity {
             List<Integer> kmPerDay = new ArrayList<>();
 
             try {
-                String urlStr = "http://192.168.0.12:3000/activity/getAllActivities";
+                String urlStr = "http://164.8.161.231:3000/activity/getAllActivities";
                 // Create a new connection for retrieving activities
                 URL activitiesUrl = new URL(urlStr);
                 HttpURLConnection activitiesConnection = (HttpURLConnection) activitiesUrl.openConnection();

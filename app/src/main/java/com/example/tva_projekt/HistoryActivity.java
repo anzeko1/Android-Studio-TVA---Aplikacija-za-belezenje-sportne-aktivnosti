@@ -65,7 +65,7 @@ public class HistoryActivity extends AppCompatActivity implements OnRecyclerView
     // Method for getting all activities from database
     private void getAllActivities() {
         try {
-            String URL = "http://192.168.1.14:3000/activity/getAllActivities/" + app.user.getIdUser();
+            String URL = "http://10.0.0.1:3000/activity/getAllActivities/" + app.user.getIdUser();
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL, null, response -> {
                 // parsanje responsa json string v listo HistoryModel
                 historyModels = Arrays.asList(Helper.parseJson(response.toString(), HistoryModel[].class));
