@@ -42,7 +42,7 @@
     </FrameLayout>
 
 
-    <lecho.lib.hellocharts.view.LineChartView
+    <lecho.lib.hellocharts.view.ColumnChartView
         android:id="@+id/stepsChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
